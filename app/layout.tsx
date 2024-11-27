@@ -1,5 +1,3 @@
-import Footer from "@/components/shared/footer";
-import Header from "@/components/shared/header";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -7,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "A fun and interactive quiz platform",
+  title: "Quiz",
   description: "A fun and interactive quiz platform for all knowledge levels",
 };
 
@@ -22,9 +20,7 @@ export default function RootLayout({
         <body
           className={`${inter.className} antialiased min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300`}
         >
-          <Header />
-          <main className="min-h-[calc(100vh-136px)]">{children}</main>
-          <Footer />
+          {children}
         </body>
       </ThemeProvider>
     </html>
