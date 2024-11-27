@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { Camera, Save } from "lucide-react";
+import Image from "next/image";
 import React, { useState } from "react";
 
 interface UserProfile {
   name: string;
   email: string;
   bio: string;
+  password: string;
+  confirmPassword: string;
   preferences: {
     notifications: boolean;
     publicProfile: boolean;
@@ -18,33 +21,23 @@ const initialProfile: UserProfile = {
   name: "John Doe",
   email: "john.doe@example.com",
   bio: "I love taking quizzes and learning new things!",
+  password: "",
+  confirmPassword: "",
   preferences: {
     notifications: true,
     publicProfile: false,
   },
 };
 
-export default function ProfilePage() {
-  return <Profile />;
-}
-
-function Profile() {
+export default function Profile() {
   const [profile, setProfile] = useState<UserProfile>(initialProfile);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>("/user.png");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setProfile((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setProfile((prev) => ({
-      ...prev,
-      preferences: { ...prev.preferences, [name]: checked },
-    }));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,9 +72,11 @@ function Profile() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex flex-col items-center mb-6">
             <div className="relative w-32 h-32 mb-4">
-              <img
+              <Image
                 src={imagePreview || "/placeholder.svg?height=128&width=128"}
                 alt="Profile"
+                width={128}
+                height={128}
                 className="w-full h-full rounded-full object-cover"
               />
               <label
@@ -133,6 +128,40 @@ function Profile() {
           </div>
           <div>
             <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              New Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Leave blank to keep the same"
+              name="password"
+              value={profile.password}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              placeholder="Leave blank to keep the same"
+              name="confirm-password"
+              value={profile.confirmPassword}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            />
+          </div>
+          <div>
+            <label
               htmlFor="bio"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
@@ -147,37 +176,7 @@ function Profile() {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             ></textarea>
           </div>
-          <div>
-            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Preferences
-            </h3>
-            <div className="space-y-2">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="notifications"
-                  checked={profile.preferences.notifications}
-                  onChange={handleCheckboxChange}
-                  className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                />
-                <span className="ml-2 text-gray-700 dark:text-gray-300">
-                  Receive notifications
-                </span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="publicProfile"
-                  checked={profile.preferences.publicProfile}
-                  onChange={handleCheckboxChange}
-                  className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                />
-                <span className="ml-2 text-gray-700 dark:text-gray-300">
-                  Make profile public
-                </span>
-              </label>
-            </div>
-          </div>
+
           <div>
             <motion.button
               whileHover={{ scale: 1.05 }}

@@ -57,7 +57,12 @@ const quizData: Quiz = {
       options: ["0", "-1", "1", "Undefined"],
       correctAnswers: [1],
     },
-    // Add more questions as needed
+    {
+      id: 4,
+      text: "What is the height of an empty binary tree?",
+      options: ["0", "-1", "1", "Undefined"],
+      correctAnswers: [1],
+    },
   ],
 };
 
@@ -117,8 +122,8 @@ export default function QuizPage() {
       </p>
 
       <div className="flex flex-col md:flex-row gap-8 mb-8">
-        <div className="w-full md:w-1/2 border">
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-6 h-full">
+        <div className="w-full md:w-1/2">
+          <div className="bg-gray-50 shadow-md  dark:bg-gray-800/50 rounded-lg p-6 h-full">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
               Quiz Progress
             </h3>
@@ -149,7 +154,7 @@ export default function QuizPage() {
           </div>
         </div>
         <div className="w-full md:w-1/2">
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-6 mb-6 border">
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-6 mb-6 shadow-md">
             <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
               {currentQuestionIndex + 1}. {currentQuestion.text}
             </h2>
@@ -162,6 +167,7 @@ export default function QuizPage() {
                       selectedAnswers[currentQuestion.id]?.includes(index) ||
                       false
                     }
+                    className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-400 data-[state-checked]:border-none border-blue-600 dark:border-blue-400 data-[state=checked]:text-primary-foreground"
                     onCheckedChange={() => handleOptionToggle(index)}
                   />
                   <Label
@@ -193,7 +199,10 @@ export default function QuizPage() {
             {currentQuestionIndex === quizData.questions.length - 1 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" className="">
+                  <Button
+                    variant="outline"
+                    className="dark:bg-violet-600 dark:border-violet-600"
+                  >
                     Submit Quiz
                   </Button>
                 </AlertDialogTrigger>

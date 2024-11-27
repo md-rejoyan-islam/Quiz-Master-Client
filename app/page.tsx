@@ -41,7 +41,7 @@ const quizzes = [
 
 export default function Home() {
   return (
-    <div className="px-4 py-8 max-screen-w ">
+    <div className="px-4 py-8 max-screen-w">
       <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
         Available Quizzes
       </h1>

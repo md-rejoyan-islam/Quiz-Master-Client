@@ -41,7 +41,7 @@ export default function ResultsPage() {
 
   const quizId = Number(params.quizId);
   // Mock user answers - replace with actual user answers in production
-  const userAnswers = {
+  const userAnswers: { [key: number]: number[] } = {
     1: [3],
     2: [0],
     3: [0],
@@ -57,8 +57,8 @@ export default function ResultsPage() {
           {quizData.description}
         </p>
 
-        <div className="grid grid-cols-2 items-center gap-8">
-          <div className=" space-y-4 text-lg border p-6 rounded-xl h-full bg-white dark:bg-gray-800">
+        <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-8">
+          <div className=" space-y-4 text-lg shadow-md p-6 rounded-xl h-full bg-white dark:bg-gray-800 order-2 md:order-1">
             <div className="flex justify-between   text-gray-600 dark:text-gray-400">
               <span>Questions:</span>
               <span>10</span>
@@ -75,14 +75,14 @@ export default function ResultsPage() {
             <div className="pt-3">
               <Link
                 href={`/leaderboard/${quizId}`}
-                className=" bg-blue-600  text-white hover:bg-blue-700  py-2 px-4 rounded-md"
+                className=" bg-blue-600  text-white hover:bg-blue-700  py-2 px-3.5 rounded-md text-sm"
               >
                 View Leaderboard
               </Link>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 items-center border  p-6  rounded-md h-full bg-white dark:bg-gray-800 ">
+          <div className="order-1 md:order-2 grid grid-cols-2 gap-4 items-center shadow-md  p-6  rounded-md h-full bg-white dark:bg-gray-800 ">
             <div>
               <h3 className="text-3xl font-bold">5/10</h3>
               <p>Your Mark</p>
@@ -101,7 +101,7 @@ export default function ResultsPage() {
             {quizData.questions.map((question, index) => (
               <div
                 key={question.id}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6"
+                className="bg-white shadow-sm dark:bg-gray-800 rounded-lg p-6"
               >
                 <h3 className="text-xl font-semibold mb-4">
                   {index + 1}. {question.text}
@@ -111,7 +111,7 @@ export default function ResultsPage() {
                     <div key={index}>
                       <div
                         className={clsx(
-                          "flex items-center space-x-2",
+                          "flex items-center px-1 py-1 rounded-md  space-x-2",
                           question.correctAnswers.includes(optionIndex)
                             ? "bg-green-500/20 text-green-300"
                             : userAnswers[question.id]?.includes(optionIndex)
@@ -125,6 +125,7 @@ export default function ResultsPage() {
                             userAnswers[question.id]?.includes(optionIndex) ||
                             false
                           }
+                          className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-400 data-[state-checked]:border-none border-blue-600 dark:border-blue-400 data-[state=checked]:text-primary-foreground"
                         />
                         <Label
                           htmlFor={`option-${index}`}

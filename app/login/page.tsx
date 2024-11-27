@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "@/components/ThemeContext";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -37,12 +36,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export default function LoginPage() {
-  return <Login />;
-}
-
-function Login() {
-  const { theme } = useTheme();
+export default function Login() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -63,14 +57,9 @@ function Login() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-[500px]  mx-auto px-4 py-8 w-full h-full "
+        className="max-w-[500px]  mx-auto px-4 !pt-16 py-8 w-full h-full "
       >
-        <Card
-          className="
-          bg-white dark:bg-gray-800
-        
-        "
-        >
+        <Card className="bg-white dark:bg-gray-700">
           <CardHeader>
             <CardTitle>Login</CardTitle>
             <CardDescription>
@@ -90,7 +79,11 @@ function Login() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your email" {...field} />
+                        <Input
+                          placeholder="Enter your email"
+                          {...field}
+                          className="dark:border-zinc-500"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -105,6 +98,7 @@ function Login() {
                       <FormControl>
                         <Input
                           type="password"
+                          className="dark:border-zinc-500"
                           placeholder="Enter your password"
                           {...field}
                         />
@@ -122,18 +116,22 @@ function Login() {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
+                          className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-400 data-[state-checked]:border-none border-blue-600 dark:border-blue-400 data-[state=checked]:text-primary-foreground"
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel>Admin Login</FormLabel>
                         <FormDescription>
-                          Check this if you're logging in as an admin
+                          Check this if you&apos;re logging in as an admin
                         </FormDescription>
                       </div>
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   Login
                 </Button>
               </form>
@@ -141,7 +139,7 @@ function Login() {
           </CardContent>
           <CardFooter className="flex justify-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/register"
                 className="text-blue-600 dark:text-blue-400 hover:underline"

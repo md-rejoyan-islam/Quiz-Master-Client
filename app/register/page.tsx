@@ -45,11 +45,7 @@ const registerSchema = z
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export default function RegisterPage() {
-  return <Register />;
-}
-
-function Register() {
+export default function Register() {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -71,7 +67,7 @@ function Register() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-[500px] mx-auto px-4 py-8 w-full"
+      className="max-w-[500px] mx-auto px-4 !pt-12 py-8 w-full"
     >
       <Card className="bg-white dark:bg-gray-800">
         <CardHeader>
@@ -90,7 +86,11 @@ function Register() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your name" {...field} />
+                      <Input
+                        placeholder="Enter your name"
+                        {...field}
+                        className="dark:border-zinc-500"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -103,7 +103,11 @@ function Register() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        placeholder="Enter your email"
+                        {...field}
+                        className="dark:border-zinc-500"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,6 +124,7 @@ function Register() {
                         type="password"
                         placeholder="Enter your password"
                         {...field}
+                        className="dark:border-zinc-500"
                       />
                     </FormControl>
                     <FormMessage />
@@ -136,6 +141,7 @@ function Register() {
                       <Input
                         type="password"
                         placeholder="Confirm your password"
+                        className="dark:border-zinc-500"
                         {...field}
                       />
                     </FormControl>
@@ -152,18 +158,22 @@ function Register() {
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-400 data-[state-checked]:border-none border-blue-600 dark:border-blue-400 data-[state=checked]:text-primary-foreground"
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>Admin Registration</FormLabel>
                       <FormDescription>
-                        Check this if you're registering as an admin
+                        Check this if you&apos;re registering as an admin
                       </FormDescription>
                     </div>
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              >
                 Register
               </Button>
             </form>

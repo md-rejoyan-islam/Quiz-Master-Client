@@ -37,11 +37,7 @@ const performanceData: QuizPerformance[] = [
   { quizName: "Literature Quiz", correctAnswers: 14, wrongAnswers: 6 },
 ];
 
-export default function PerformancePage() {
-  return <Performance />;
-}
-
-function Performance() {
+export default function Performance() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -52,7 +48,7 @@ function Performance() {
       <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
         Overall Performance
       </h1>
-      <Card>
+      <Card className="dark:bg-gray-800">
         <CardHeader>
           <CardTitle>Quiz Performance</CardTitle>
           <CardDescription>
@@ -71,7 +67,7 @@ function Performance() {
                 color: "hsl(var(--chart-2))",
               },
             }}
-            className="h-[400px]"
+            className=" max-w-[700px] mx-auto"
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart

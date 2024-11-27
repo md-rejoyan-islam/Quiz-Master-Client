@@ -42,7 +42,7 @@ const Header: React.FC = () => {
           exit={{ opacity: 0, y: -20 }}
           className="md:hidden bg-white dark:bg-gray-800 shadow-md"
         >
-          <div className="container mx-auto px-4 py-2">
+          <div className="container mx-auto px-4 py-2 ">
             <NavLinks mobile />
           </div>
         </motion.div>
@@ -54,64 +54,45 @@ const Header: React.FC = () => {
 const NavLinks: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
   const pathname = usePathname();
 
-  const linkClass = `block py-2   ${mobile ? "text-lg" : ""}`;
+  const links = [
+    { id: 1, name: "Home", path: "/", isActive: pathname === "/" },
+    {
+      id: 2,
+      name: "Leaderboard",
+      path: "/leaderboard",
+      isActive: pathname === "/leaderboard",
+    },
+    {
+      id: 3,
+      name: "Performance",
+      path: "/performance",
+      isActive: pathname === "/performance",
+    },
+    {
+      id: 4,
+      name: "Profile",
+      path: "/profile",
+      isActive: pathname === "/profile",
+    },
+    { id: 5, name: "Login", path: "/login", isActive: pathname === "/login" },
+  ];
+
   return (
     <>
-      <Link
-        href="/"
-        className={clsx(
-          linkClass,
-          pathname === "/"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        )}
-      >
-        Home
-      </Link>
-      <Link
-        href="/leaderboard"
-        className={clsx(
-          linkClass,
-          pathname === "/leaderboard"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        )}
-      >
-        Leaderboard
-      </Link>
-      <Link
-        href="/performance"
-        className={clsx(
-          linkClass,
-          pathname === "/performance"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        )}
-      >
-        Performance
-      </Link>
-      <Link
-        href="/profile"
-        className={clsx(
-          linkClass,
-          pathname === "/profile"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        )}
-      >
-        Profile
-      </Link>
-      <Link
-        href="/login"
-        className={clsx(
-          linkClass,
-          pathname === "/login"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        )}
-      >
-        Login
-      </Link>
+      {links.map((link) => (
+        <Link
+          key={link.id}
+          href={link.path}
+          className={clsx(
+            link.isActive
+              ? "text-blue-600 dark:text-blue-400"
+              : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 block py-2",
+            mobile ? "text-lg" : ""
+          )}
+        >
+          {link.name}
+        </Link>
+      ))}
     </>
   );
 };
