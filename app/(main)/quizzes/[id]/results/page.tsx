@@ -7,7 +7,11 @@ import clsx from "clsx";
 import Link from "next/link";
 import "react-circular-progressbar/dist/styles.css";
 
-// Mock data - replace with actual API call in production
+export const metadata = {
+  title: "Quiz Results",
+  description: "View your quiz results and review your answers",
+};
+
 const quizData = {
   id: 1,
   title: "React Hooks Quiz",

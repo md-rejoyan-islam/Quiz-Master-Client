@@ -113,12 +113,12 @@ function QuizLeaderboard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-screen-w mx-auto px-4 py-8"
+      className="max-w-7xl mx-auto px-4 py-12 md:py-20"
     >
       <div className="flex items-center mb-8">
         <Link
           href="/leaderboard"
-          className="mr-4 p-2 rounded-full bg-slate-700/50 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+          className="mr-4 p-2 rounded-full bg-slate-700/40 text-gray-400  hover:bg-gray-800 hover:text-white transition-colors duration-200"
         >
           <ArrowLeft size={20} />
         </Link>
@@ -126,25 +126,25 @@ function QuizLeaderboard() {
           {quiz?.title} Leaderboard
         </h1>
       </div>
-      <div className="bg-slate-700/50 rounded-lg shadow-lg p-6 mb-8">
+      <div className="bg-gradient-to-r from-slate-900/60 to-slate-900/40 border border-slate-700/50 rounded-lg shadow-lg p-6 mb-8">
         <h2 className="text-xl font-semibold mb-4 text-white">Quiz Details</h2>
         <p className="text-white/80 mb-4">{quiz?.description}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center text-white/70">
             <Calendar className="mr-2" size={20} />
-            <span>Date: {quiz.date}</span>
+            <span>Date: {quiz?.date}</span>
           </div>
           <div className="flex items-center text-white/70">
             <Users className="mr-2" size={20} />
-            <span>Participants: {quiz.participants}</span>
+            <span>Participants: {quiz?.participants}</span>
           </div>
           <div className="flex items-center text-white/70">
             <Clock className="mr-2" size={20} />
-            <span>Duration: {quiz.duration}</span>
+            <span>Duration: {quiz?.duration}</span>
           </div>
         </div>
       </div>
-      <div className="bg-slate-800/50 rounded-lg shadow-lg p-6">
+      <div className="bg-gradient-to-r from-slate-900/60 to-slate-900/40 border border-slate-700/50 rounded-lg shadow-lg p-6">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -161,7 +161,7 @@ function QuizLeaderboard() {
               {paginatedData.map((entry, index) => (
                 <motion.tr
                   key={entry.id}
-                  className="border-t border-gray-200 dark:border-gray-700"
+                  className="border-t border-slate-700 text-white/70 hover:bg-slate-900/50 transition-colors cursor-pointer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -187,11 +187,11 @@ function QuizLeaderboard() {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 disabled:opacity-50"
+            className="p-2 rounded-full bg-slate-600/50 hover:bg-slate-600/70 hover:text-white text-white/70  disabled:opacity-50"
           >
             <ChevronLeft size={20} />
           </button>
-          <span className="text-gray-600 dark:text-gray-400">
+          <span className="text-white/60">
             Page {currentPage} of {totalPages}
           </span>
           <button
@@ -199,7 +199,7 @@ function QuizLeaderboard() {
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 disabled:opacity-50"
+            className="p-2 rounded-full bg-slate-600/50 hover:bg-slate-600/70 hover:text-white text-white/70  disabled:opacity-50"
           >
             <ChevronRight size={20} />
           </button>
