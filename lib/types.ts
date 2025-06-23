@@ -38,7 +38,7 @@ export interface QUIZ_SET {
   title: string;
   description: string;
   category: string[];
-  status: QUIZ_SET_STATUS.DRAFT | QUIZ_SET_STATUS.PUBLISHED;
+  status: QUIZ_SET_STATUS;
   label: QUIZ_SET_LABEL.EASY | QUIZ_SET_LABEL.MEDIUM | QUIZ_SET_LABEL.HARD;
   userId: string;
   createdAt: string;

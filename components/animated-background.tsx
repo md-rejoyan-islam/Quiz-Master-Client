@@ -23,7 +23,7 @@ const AnimatedBackground = ({
         repeat: Infinity,
         ease: "linear",
       }}
-      className={`absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl ${className}`}
+      className={`absolute  w-72 h-72 bg-purple-500/10 rounded-full blur-3xl ${className}`}
     />
   );
 };
