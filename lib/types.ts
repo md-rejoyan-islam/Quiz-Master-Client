@@ -1,78 +1,89 @@
-export enum QuizDifficulty {
-  Easy = "easy",
-  Medium = "medium",
-  Hard = "hard",
-}
-export enum QuizLabel {
-  Easy = "easy",
-  Medium = "medium",
-  Hard = "hard",
+export enum QUIZ_SET_LABEL {
+  EASY = "easy",
+  MEDIUM = "medium",
+  HARD = "hard",
 }
 
-export enum QuizStatus {
+export enum QUIZ_SET_STATUS {
   DRAFT = "draft",
   PUBLISHED = "published",
 }
 
-export interface Quiz {
+export interface QUIZ_SET_RATING {
+  id: string;
+  userId: string;
+  quizId: string;
+  rating: number; //from 0 to 5
+  createdAt: string;
+  updatedAt: string;
+  user?: USER;
+  quiz?: QUIZ_SET;
+}
+
+export interface QUESTION {
+  id: string;
+  quizSetId: string;
+  question: string;
+  options: string[];
+  correctAnswers: string[] | number[];
+  mark: number;
+  time: number;
+  createdAt: string;
+  updatedAt: string;
+  quiz?: QUIZ_SET;
+}
+
+export interface QUIZ_SET {
   id: string;
   title: string;
   description: string;
-  createdAt: string;
-  updatedAt: string; // Corrected typo from "updateddAt"
-  status: QuizStatus.DRAFT | QuizStatus.PUBLISHED; // Enum-like type for status
+  category: string[];
+  status: QUIZ_SET_STATUS.DRAFT | QUIZ_SET_STATUS.PUBLISHED;
+  label: QUIZ_SET_LABEL.EASY | QUIZ_SET_LABEL.MEDIUM | QUIZ_SET_LABEL.HARD;
   userId: string;
-  user: User; // User object reference
-  label: QuizLabel.Easy | QuizLabel.Medium | QuizLabel.Hard; // Enum-like type for label
-  attempts: Attempt[]; // Array of Attempt objects
-  questions: Question[]; // Array of Question objects
+  createdAt: string;
+  updatedAt: string;
+  questions: QUESTION[];
+  ratings?: QUIZ_SET_RATING[];
+  attempts?: ATTEMPT[];
+  user?: USER;
 }
 
-export interface Attempt {
+export interface ATTEMPT {
   id: string;
   userId: string;
-  user: User; // User object reference
   quizId: string;
-  quiz: Quiz; // Quiz object reference
   score: number;
-  submittedAnswers: SubmittedAnswer[]; // Define submittedAnswers type if structured
-  completed: boolean;
-  percentage: number;
   correct: number;
   wrong: number;
   skipped: number;
   createdAt: string;
-  updatedAt: string; // Corrected typo from "updateddAt"
+  updatedAt: string;
+  submittedAnswers: SUBMITTED_ANSWER[];
+  user?: USER;
+  quiz?: QUIZ_SET;
 }
 
-export interface Question {
-  id: string;
-  quizId: string;
-  quiz?: Quiz; // Quiz object reference
-  question: string;
-  options: string[]; // Array of answer options
-  correctAnswers: string[] | number[]; // Array of correct answers
-  marks: number;
-  createdAt: string;
-  updatedAt: string; // Corrected typo from "updateddAt"
+export enum USER_ROLE {
+  ADMIN = "admin",
+  USER = "user",
 }
 
-export interface User {
+export interface USER {
   id: string;
   fullName: string;
   email: string;
-  password: string; // Should be stored securely in production
+  bio: string | null;
+  password: string;
   photo: string | null;
-  role: "admin" | "user"; // Enum-like type for roles
-  refreshToken: string | null;
-  quizzes: Quiz[]; // Array of Quiz objects
-  attempts: Attempt[]; // Array of Attempt objects
+  role: USER_ROLE;
+  quizSets?: QUIZ_SET[];
+  attempts?: ATTEMPT[];
   createdAt: string;
-  updatedAt: string; // Corrected typo from "updateddAt"
+  updatedAt: string;
 }
 
-// Optional: Define the type for submitted answers if needed
-export interface SubmittedAnswer {
+export interface SUBMITTED_ANSWER {
   questionId: string;
   selectedAnswers: string[];
 }

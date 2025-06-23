@@ -1,10 +1,42 @@
 [
   {
-    "questionId": "01",
-    "answers": ["a", "b"]
+    "questionId": "question-001",
+    "selectedAnswers": ["Paris"]
   },
   {
-    "questionId": "02",
-    "answers": ["a"]
+    "questionId": "question-002",
+    "selectedAnswers": ["Python", "CSS"]
+  },
+  {
+    "questionId": "question-003",
+    "selectedAnswers": ["H2O"]
+  },
+  {
+    "questionId": "question-004",
+    "selectedAnswers": ["Mars"]
+  },
+  {
+    "questionId": "question-005",
+    "selectedAnswers": ["Leonardo da Vinci"]
+  },
+  {
+    "questionId": "question-006",
+    "selectedAnswers": ["Pacific Ocean"]
+  },
+  {
+    "questionId": "question-007",
+    "selectedAnswers": ["8"]
+  },
+  {
+    "questionId": "question-008",
+    "selectedAnswers": ["France"]
+  },
+  {
+    "questionId": "question-009",
+    "selectedAnswers": ["2"]
+  },
+  {
+    "questionId": "question-010",
+    "selectedAnswers": ["Lion"]
   }
 ]

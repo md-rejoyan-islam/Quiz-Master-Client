@@ -6,10 +6,11 @@ import { GraduationCap, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  //   const { theme, toggleTheme } = useTheme();
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
@@ -36,14 +37,15 @@ const Header: React.FC = () => {
             </motion.button>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-8">
-            <NavLinks />
+          <nav className="hidden md:block">
+            <ul className="flex items-center space-x-8">
+              <NavLinks />
+            </ul>
           </nav>
           <div className="md:hidden flex items-center">
-            {/* <ThemeToggle theme={theme} toggleTheme={toggleTheme} /> */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="ml-4 text-gray-600 dark:text-gray-300"
+              className="ml-4 text-gray-600 hover:text-purple-400 "
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -51,16 +53,16 @@ const Header: React.FC = () => {
         </div>
       </div>
       {isMenuOpen && (
-        <motion.div
+        <motion.nav
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           className="md:hidden absolute top-[65px] bg-slate-900/90 backdrop-blur-md left-0 w-full shadow-md"
         >
-          <ul className="container mx-auto px-4 py-2 flex flex-col space-y-3 items-center">
+          <ul className="container mx-auto px-4 py-3 flex flex-col space-y-4 items-center">
             <NavLinks mobile={true} setIsMenuOpen={setIsMenuOpen} />
           </ul>
-        </motion.div>
+        </motion.nav>
       )}
     </motion.header>
   );
@@ -74,6 +76,8 @@ const NavLinks: React.FC<{
 }> = ({ mobile, setIsMenuOpen }) => {
   const pathname = usePathname();
 
+  const isAuthenticated = false;
+
   const links = [
     { id: 1, name: "Home", path: "/", isActive: pathname === "/" },
     {
@@ -82,44 +86,35 @@ const NavLinks: React.FC<{
       path: "/quizzes",
       isActive: pathname === "/quizzes",
     },
-    {
-      id: 2,
-      name: "Leaderboard",
-      path: "/leaderboard",
-      isActive: pathname === "/leaderboard",
-    },
-    {
-      id: 3,
-      name: "Performance",
-      path: "/performance",
-      isActive: pathname === "/performance",
-    },
-    {
-      id: 4,
-      name: "Profile",
-      path: "/profile",
-      isActive: pathname === "/profile",
-    },
-    { id: 5, name: "Login", path: "/login", isActive: pathname === "/login" },
+    ...(isAuthenticated
+      ? [
+          {
+            id: 2,
+            name: "Leaderboard",
+            path: "/leaderboard",
+            isActive: pathname === "/leaderboard",
+          },
+          {
+            id: 3,
+            name: "Performance",
+            path: "/performance",
+            isActive: pathname === "/performance",
+          },
+        ]
+      : [
+          {
+            id: 6,
+            name: "Login",
+            path: "/login",
+            isActive: pathname === "/login",
+          },
+        ]),
   ];
 
   return (
     <>
       {links.map((link) => (
-        // <Link
-        //   key={link.id}
-        //   href={link.path}
-        //   className={clsx(
-        //     link.isActive
-        //       ? "text-blue-600 dark:text-blue-400"
-        //       : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 block py-2",
-        //     mobile ? "text-lg" : ""
-        //   )}
-        //   onClick={() => setIsMenuOpen && setIsMenuOpen(false)}
-        // >
-        //   {link.name}
-        //   </Link>
-        <motion.span
+        <motion.li
           key={link.id}
           whileHover={{ scale: 1.05 }}
           className="text-gray-300 hover:text-purple-400 transition-colors"
@@ -129,15 +124,43 @@ const NavLinks: React.FC<{
             className={clsx(
               link.isActive ? "text-purple-400" : "",
               mobile
-                ? "text-lg text-gray-300 hover:text-purple-400 transition-colors"
+                ? "sm:text-lg text-gray-300 hover:text-purple-400 transition-colors"
                 : ""
             )}
             onClick={() => setIsMenuOpen && setIsMenuOpen(false)}
           >
             {link.name}
           </Link>
-        </motion.span>
+        </motion.li>
       ))}
+      {isAuthenticated && (
+        <li className="group  relative">
+          <Avatar className=" hidden md:block w-9 h-9 cursor-pointer">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <div className="  md:absolute rounded-md z-10  top-9 md:shadow-md   -right-2  w-[200px] md:bg-slate-900/90 mdbackdrop-blur-md md:border border-purple-500/10 md:hidden md:group-hover:block transition-opacity">
+            <p className="hidden md:block  text-white px-3 py-2 border-b border-purple-500 text-center">
+              abc@gmail.com
+            </p>
+            <ul className="flex md:block flex-col items-center space-y-4 md:space-y-0">
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                className="text-white cursor-pointer hover:text-purple-500 md:px-3 md:py-2 transition-colors"
+              >
+                <Link href="/profile">Profile</Link>
+              </motion.li>
+
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                className="text-gray-300 cursor-pointer md:px-3 md:py-2  hover:text-purple-400 transition-colors"
+              >
+                <Link href="/logout">Logout</Link>
+              </motion.li>
+            </ul>
+          </div>
+        </li>
+      )}
     </>
   );
 };

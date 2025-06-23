@@ -11,8 +11,11 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import AnimatedBackgroundPattern from "../animated-background-pattern";
 import BadgeBtn from "../button/badge-btn";
-import { Button } from "../ui/button";
+import GradientAnimatedBtn from "../button/gradient-animated-btn";
+import SectionSubtitle from "./section-subtitle";
+import SectionTitle from "./section-title";
 
 export const quizData = [
   {
@@ -405,47 +408,30 @@ const Quizzes = () => {
           backgroundImage: "url(/brain.svg)",
         }}
       ></motion.div>
-      <div className="container mx-auto relative z-10">
-        <div className="flex items-center justify-center">
-          <BadgeBtn
-            text="Challenges"
-            icon={<Target className="h-4 w-4 mr-2" />}
-          />
-        </div>
+      <AnimatedBackgroundPattern />
+
+      <div className=" max-w-7xl mx-auto  relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center "
+          className="text-center mb-6"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Choose Your Challenge
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Select from our wide range of quiz categories and test your
-            knowledge
-          </p>
-        </motion.div>
-        <motion.div
-          className="text-center mb-16 mt-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              asChild
-            >
-              <a href="#quizzes">
-                All Quizzes
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-          </motion.div>
+          <BadgeBtn
+            text="Challenges"
+            icon={<Target className="h-4 w-4 mr-2" />}
+          />
+
+          <SectionTitle firstLine="Choose Your" secondLine="Challenge" />
+          <SectionSubtitle title="Select from our wide range of quiz categories and test your knowledge" />
+          <div className="py-4">
+            <GradientAnimatedBtn
+              rightIcon={<ArrowRight className="ml-2 h-5 w-5" />}
+              text="All Quizzes"
+              href="/quizzes"
+            />
+          </div>
         </motion.div>
 
         <motion.div
@@ -484,14 +470,16 @@ const Quizzes = () => {
                     </motion.div>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                        difficultyColors[quiz.difficulty]
+                        difficultyColors[
+                          quiz.difficulty as keyof typeof difficultyColors
+                        ]
                       }`}
                     >
                       {quiz.difficulty}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 truncate transition-colors">
                     {quiz.title}
                   </h3>
 

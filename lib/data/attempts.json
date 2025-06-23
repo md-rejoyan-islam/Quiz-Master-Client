@@ -1,18 +1,140 @@
 [
   {
-    "id": "01",
-    "userId": "01212121212121212",
-    "user": {},
-    "quizId": "01",
-    "quiz": {},
+    "id": "attempt-001",
+    "userId": "user-001",
+    "quizId": "quizset-001",
+    "score": 10,
+    "correct": 1,
+    "wrong": 1,
+    "skipped": 0,
+    "createdAt": "2023-03-06T09:30:00Z",
+    "updatedAt": "2023-03-06T09:35:00Z",
+    "submittedAnswers": [
+      { "questionId": "question-001", "selectedAnswers": ["Paris"] },
+      { "questionId": "question-002", "selectedAnswers": ["Python", "CSS"] }
+    ]
+  },
+  {
+    "id": "attempt-002",
+    "userId": "user-002",
+    "quizId": "quizset-002",
+    "score": 22,
+    "correct": 2,
+    "wrong": 0,
+    "skipped": 0,
+    "createdAt": "2023-03-13T10:00:00Z",
+    "updatedAt": "2023-03-13T10:05:00Z",
+    "submittedAnswers": [
+      { "questionId": "question-003", "selectedAnswers": ["H2O"] },
+      { "questionId": "question-004", "selectedAnswers": ["Mars"] }
+    ]
+  },
+  {
+    "id": "attempt-003",
+    "userId": "user-003",
+    "quizId": "quizset-003",
     "score": 20,
-    "submittedAnswers": [],
-    "completed": true,
-    "percentage": 19.23,
-    "correct": 12,
-    "wrong": 6,
-    "skipped": 4,
-    "createdAt": "2023-02-12",
-    "updateddAt": "2024-01-24"
+    "correct": 2,
+    "wrong": 0,
+    "skipped": 0,
+    "createdAt": "2023-03-16T11:00:00Z",
+    "updatedAt": "2023-03-16T11:05:00Z",
+    "submittedAnswers": [
+      {
+        "questionId": "question-005",
+        "selectedAnswers": ["Leonardo da Vinci"]
+      },
+      { "questionId": "question-006", "selectedAnswers": ["Pacific Ocean"] }
+    ]
+  },
+  {
+    "id": "attempt-004",
+    "userId": "user-004",
+    "quizId": "quizset-004",
+    "score": 18,
+    "correct": 2,
+    "wrong": 0,
+    "skipped": 0,
+    "createdAt": "2023-03-21T09:40:00Z",
+    "updatedAt": "2023-03-21T09:45:00Z",
+    "submittedAnswers": [
+      { "questionId": "question-007", "selectedAnswers": ["8"] },
+      { "questionId": "question-008", "selectedAnswers": ["France"] }
+    ]
+  },
+  {
+    "id": "attempt-005",
+    "userId": "user-005",
+    "quizId": "quizset-005",
+    "score": 20,
+    "correct": 2,
+    "wrong": 0,
+    "skipped": 0,
+    "createdAt": "2023-03-26T14:10:00Z",
+    "updatedAt": "2023-03-26T14:15:00Z",
+    "submittedAnswers": [
+      { "questionId": "question-009", "selectedAnswers": ["2"] },
+      { "questionId": "question-010", "selectedAnswers": ["Lion"] }
+    ]
+  },
+  {
+    "id": "attempt-006",
+    "userId": "user-001",
+    "quizId": "quizset-002",
+    "score": 12,
+    "correct": 1,
+    "wrong": 1,
+    "skipped": 0,
+    "createdAt": "2023-04-02T10:00:00Z",
+    "updatedAt": "2023-04-02T10:05:00Z",
+    "submittedAnswers": []
+  },
+  {
+    "id": "attempt-007",
+    "userId": "user-002",
+    "quizId": "quizset-001",
+    "score": 15,
+    "correct": 1,
+    "wrong": 1,
+    "skipped": 0,
+    "createdAt": "2023-04-06T11:00:00Z",
+    "updatedAt": "2023-04-06T11:05:00Z",
+    "submittedAnswers": []
+  },
+  {
+    "id": "attempt-008",
+    "userId": "user-003",
+    "quizId": "quizset-004",
+    "score": 8,
+    "correct": 1,
+    "wrong": 0,
+    "skipped": 1,
+    "createdAt": "2023-04-11T12:00:00Z",
+    "updatedAt": "2023-04-11T12:05:00Z",
+    "submittedAnswers": []
+  },
+  {
+    "id": "attempt-009",
+    "userId": "user-004",
+    "quizId": "quizset-005",
+    "score": 10,
+    "correct": 1,
+    "wrong": 0,
+    "skipped": 1,
+    "createdAt": "2023-04-16T13:00:00Z",
+    "updatedAt": "2023-04-16T13:05:00Z",
+    "submittedAnswers": []
+  },
+  {
+    "id": "attempt-010",
+    "userId": "user-005",
+    "quizId": "quizset-001",
+    "score": 25,
+    "correct": 2,
+    "wrong": 0,
+    "skipped": 0,
+    "createdAt": "2023-04-21T14:00:00Z",
+    "updatedAt": "2023-04-21T14:05:00Z",
+    "submittedAnswers": []
   }
 ]

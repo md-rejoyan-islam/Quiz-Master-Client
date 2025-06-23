@@ -1,52 +1,247 @@
 [
   {
-    "id": "02",
-    "title": "title",
-    "description": "descriptiton",
-    "createdAt": "2022-10-24",
-    "updateddAt": "20201-01-23",
-    "status": "draft",
-    "userId": "032323231",
-    "user": {},
-    "label": "hard",
-    "attempts": [],
+    "id": "quizset-001",
+    "title": "Basic General Knowledge",
+    "description": "A simple quiz to test your general knowledge.",
+    "category": ["General Knowledge", "Beginner"],
+    "status": "published",
+    "label": "easy",
+    "userId": "user-001",
+    "createdAt": "2023-02-28T09:00:00Z",
+    "updatedAt": "2023-03-05T14:00:00Z",
     "questions": [
       {
-        "id": "01",
-        "quizId": "01111",
-        "quiz": {},
-        "question": "this is question",
-        "options": ["A", "B", "C", "D"],
-        "correctAnswers": ["A", "B"],
-        "marks": 5,
-        "createdAt": "2022-10-24",
-        "updatedAt": "20201-01-23"
+        "id": "question-001",
+        "quizSetId": "quizset-001",
+        "question": "What is the capital of France?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "correctAnswers": ["Paris"],
+        "mark": 10,
+        "time": 30,
+        "createdAt": "2023-03-01T12:00:00Z",
+        "updatedAt": "2023-03-01T12:00:00Z"
+      },
+      {
+        "id": "question-002",
+        "quizSetId": "quizset-001",
+        "question": "Which of these are programming languages?",
+        "options": ["Python", "HTML", "CSS", "JavaScript"],
+        "correctAnswers": ["Python", "JavaScript"],
+        "mark": 15,
+        "time": 45,
+        "createdAt": "2023-03-01T12:05:00Z",
+        "updatedAt": "2023-03-01T12:05:00Z"
       }
     ]
   },
   {
-    "id": "03",
-    "title": "title2",
-    "description": "descriptiton2",
-    "createdAt": "2022-10-26",
-    "updateddAt": "20201-01-27",
+    "id": "quizset-002",
+    "title": "Science Fundamentals",
+    "description": "Quiz on basic science concepts.",
+    "category": ["Science", "Physics", "Chemistry"],
     "status": "published",
-    "userId": "032323231",
-    "user": {},
-    "label": "hard",
-    "attempts": [],
+    "label": "medium",
+    "userId": "user-002",
+    "createdAt": "2023-03-10T10:00:00Z",
+    "updatedAt": "2023-03-12T15:30:00Z",
     "questions": [
       {
-        "id": "01",
-        "quizId": "01111",
-        "quiz": {},
-        "question": "this is question",
-        "options": ["A", "B", "C", "D"],
-        "correctAnswers": ["A", "B"],
-        "marks": 5,
-        "createdAt": "2022-10-24",
-        "updatedAt": "20201-01-23"
+        "id": "question-003",
+        "quizSetId": "quizset-002",
+        "question": "What is the chemical symbol for water?",
+        "options": ["O2", "H2O", "CO2", "NaCl"],
+        "correctAnswers": ["H2O"],
+        "mark": 10,
+        "time": 25,
+        "createdAt": "2023-03-02T10:00:00Z",
+        "updatedAt": "2023-03-02T10:00:00Z"
+      },
+      {
+        "id": "question-004",
+        "quizSetId": "quizset-002",
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Mars", "Jupiter", "Venus"],
+        "correctAnswers": ["Mars"],
+        "mark": 12,
+        "time": 30,
+        "createdAt": "2023-03-02T10:05:00Z",
+        "updatedAt": "2023-03-02T10:05:00Z"
       }
     ]
+  },
+  {
+    "id": "quizset-003",
+    "title": "Art and History",
+    "description": "Test your knowledge of famous artworks and historical events.",
+    "category": ["Art", "History"],
+    "status": "published",
+    "label": "easy",
+    "userId": "user-003",
+    "createdAt": "2023-03-15T11:00:00Z",
+    "updatedAt": "2023-03-15T11:00:00Z",
+    "questions": [
+      {
+        "id": "question-005",
+        "quizSetId": "quizset-003",
+        "question": "Who painted the Mona Lisa?",
+        "options": [
+          "Vincent van Gogh",
+          "Pablo Picasso",
+          "Leonardo da Vinci",
+          "Claude Monet"
+        ],
+        "correctAnswers": ["Leonardo da Vinci"],
+        "mark": 10,
+        "time": 35,
+        "createdAt": "2023-03-03T11:00:00Z",
+        "updatedAt": "2023-03-03T11:00:00Z"
+      },
+      {
+        "id": "question-006",
+        "quizSetId": "quizset-003",
+        "question": "What is the largest ocean on Earth?",
+        "options": [
+          "Atlantic Ocean",
+          "Indian Ocean",
+          "Southern Ocean",
+          "Pacific Ocean"
+        ],
+        "correctAnswers": ["Pacific Ocean"],
+        "mark": 10,
+        "time": 20,
+        "createdAt": "2023-03-03T11:05:00Z",
+        "updatedAt": "2023-03-03T11:05:00Z"
+      }
+    ]
+  },
+  {
+    "id": "quizset-004",
+    "title": "Math Mania",
+    "description": "Simple math problems for quick thinking.",
+    "category": ["Math"],
+    "status": "published",
+    "label": "easy",
+    "userId": "user-004",
+    "createdAt": "2023-03-20T09:30:00Z",
+    "updatedAt": "2023-03-20T09:30:00Z",
+    "questions": [
+      {
+        "id": "question-007",
+        "quizSetId": "quizset-004",
+        "question": "What is the square root of 64?",
+        "options": ["6", "7", "8", "9"],
+        "correctAnswers": ["8"],
+        "mark": 8,
+        "time": 15,
+        "createdAt": "2023-03-04T09:00:00Z",
+        "updatedAt": "2023-03-04T09:00:00Z"
+      },
+      {
+        "id": "question-008",
+        "quizSetId": "quizset-004",
+        "question": "Which country is famous for the Eiffel Tower?",
+        "options": ["Italy", "Germany", "France", "Spain"],
+        "correctAnswers": ["France"],
+        "mark": 10,
+        "time": 25,
+        "createdAt": "2023-03-04T09:05:00Z",
+        "updatedAt": "2023-03-04T09:05:00Z"
+      }
+    ]
+  },
+  {
+    "id": "quizset-005",
+    "title": "Animal Kingdom",
+    "description": "A quiz about various animals.",
+    "category": ["Animals", "Biology"],
+    "status": "published",
+    "label": "medium",
+    "userId": "user-005",
+    "createdAt": "2023-03-25T14:00:00Z",
+    "updatedAt": "2023-03-25T14:00:00Z",
+    "questions": [
+      {
+        "id": "question-009",
+        "quizSetId": "quizset-005",
+        "question": "What is the smallest prime number?",
+        "options": ["0", "1", "2", "3"],
+        "correctAnswers": ["2"],
+        "mark": 10,
+        "time": 20,
+        "createdAt": "2023-03-05T13:00:00Z",
+        "updatedAt": "2023-03-05T13:00:00Z"
+      },
+      {
+        "id": "question-010",
+        "quizSetId": "quizset-005",
+        "question": "Which animal is known as the 'King of the Jungle'?",
+        "options": ["Tiger", "Lion", "Elephant", "Bear"],
+        "correctAnswers": ["Lion"],
+        "mark": 10,
+        "time": 15,
+        "createdAt": "2023-03-05T13:05:00Z",
+        "updatedAt": "2023-03-05T13:05:00Z"
+      }
+    ]
+  },
+  {
+    "id": "quizset-006",
+    "title": "World Geography",
+    "description": "Test your knowledge about countries and capitals.",
+    "category": ["Geography", "World"],
+    "status": "published",
+    "label": "easy",
+    "userId": "user-006",
+    "createdAt": "2023-04-01T10:00:00Z",
+    "updatedAt": "2023-04-01T10:00:00Z",
+    "questions": []
+  },
+  {
+    "id": "quizset-007",
+    "title": "Computer Science Basics",
+    "description": "Fundamental concepts of computer science.",
+    "category": ["Computer Science", "Technology"],
+    "status": "published",
+    "label": "medium",
+    "userId": "user-007",
+    "createdAt": "2023-04-05T11:00:00Z",
+    "updatedAt": "2023-04-05T11:00:00Z",
+    "questions": []
+  },
+  {
+    "id": "quizset-008",
+    "title": "History of the Internet",
+    "description": "Explore the evolution of the internet.",
+    "category": ["History", "Internet", "Technology"],
+    "status": "draft",
+    "label": "hard",
+    "userId": "user-008",
+    "createdAt": "2023-04-10T12:00:00Z",
+    "updatedAt": "2023-04-10T12:00:00Z",
+    "questions": []
+  },
+  {
+    "id": "quizset-009",
+    "title": "Literature and Authors",
+    "description": "Quiz on famous books and authors.",
+    "category": ["Literature", "Books"],
+    "status": "published",
+    "label": "easy",
+    "userId": "user-009",
+    "createdAt": "2023-04-15T13:00:00Z",
+    "updatedAt": "2023-04-15T13:00:00Z",
+    "questions": []
+  },
+  {
+    "id": "quizset-010",
+    "title": "Space Exploration",
+    "description": "Questions about space, planets, and missions.",
+    "category": ["Space", "Astronomy"],
+    "status": "published",
+    "label": "medium",
+    "userId": "user-010",
+    "createdAt": "2023-04-20T14:00:00Z",
+    "updatedAt": "2023-04-20T14:00:00Z",
+    "questions": []
   }
 ]

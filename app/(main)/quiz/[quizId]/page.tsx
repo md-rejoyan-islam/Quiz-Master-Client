@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Quiz, QuizLabel, QuizStatus } from "@/lib/types";
+import { Quiz, QuizLabel, QuizStatus,QUIZ_SET, } from "@/lib/types";
 import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";

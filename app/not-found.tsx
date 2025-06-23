@@ -14,7 +14,7 @@ const NotFound = () => {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className=" text-[50vw] md:text-[40vw] font-bold text-gray-900 dark:text-gray-100"
+            className=" text-[50vw] md:text-[40vw] font-bold text-white"
           >
             404
           </motion.div>
@@ -27,7 +27,7 @@ const NotFound = () => {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4"
+              className="text-4xl sm:text-6xl font-bold text-white/80 mb-4"
             >
               Oops! Page not found
             </motion.h1>
@@ -35,7 +35,7 @@ const NotFound = () => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl text-gray-600 dark:text-gray-400 mb-8"
+              className="text-xl text-white/70 mb-8"
             >
               The page you are looking for doesn&apos;t exist or has been moved.
             </motion.p>
@@ -47,7 +47,7 @@ const NotFound = () => {
               <Link href="/">
                 <Button
                   size="lg"
-                  className="bg-blue-500 hover:bg-blue-600 text-white"
+                  className="bg-purple-700 hover:bg-purple-800 text-white"
                 >
                   Go back home
                 </Button>

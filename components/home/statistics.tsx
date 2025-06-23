@@ -11,7 +11,11 @@ import {
   Users,
 } from "lucide-react";
 import React from "react";
+import AnimatedBackground from "../animated-background";
 import BadgeBtn from "../button/badge-btn";
+import GradientAnimatedBtn from "../button/gradient-animated-btn";
+import SectionSubtitle from "./section-subtitle";
+import SectionTitle from "./section-title";
 
 const Statistics: React.FC = () => {
   const stats = [
@@ -92,33 +96,22 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-900/50 via-slate-900 to-purple-900/50 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-purple-900/50 via-slate-900 to-purple-900/50 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-30">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+        <AnimatedBackground
+          scale={[1, 1.2, 1]}
+          rotate={[0, 180, 360]}
+          duration={20}
           className="absolute top-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
         />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute bottom-20 right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"
+        <AnimatedBackground
+          scale={[1, 1.2, 1]}
+          rotate={[360, 180, 0]}
+          duration={25}
+          className=" bottom-20 right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"
         />
+
         <motion.div
           animate={{
             y: [-20, 20, -20],
@@ -147,16 +140,15 @@ const Statistics: React.FC = () => {
             icon={<TrendingUp className="h-4 w-4 mr-2" />}
           />
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Join Thousands of
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-              Successful Learners
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Our platform has helped students worldwide achieve their academic
-            goals through interactive learning
-          </p>
+          <SectionTitle
+            firstLine=" Join Thousands of"
+            secondLine="Successful Learners"
+          />
+
+          <SectionSubtitle
+            title="Our platform has helped students worldwide achieve their academic
+            goals through interactive learning"
+          />
         </motion.div>
 
         {/* Main Statistics Grid */}
@@ -265,7 +257,7 @@ const Statistics: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {achievements.map((achievement, index) => {
               const IconComponent = achievement.icon;
@@ -287,9 +279,11 @@ const Statistics: React.FC = () => {
                     transition={{ duration: 0.6 }}
                     className="p-4 rounded-2xl bg-slate-700/50 group-hover:bg-slate-600/50 transition-colors mb-4"
                   >
-                    <IconComponent className={`h-8 w-8 ${achievement.color}`} />
+                    <IconComponent
+                      className={`h-6 w-6 sm:h-8 sm:w-8 ${achievement.color}`}
+                    />
                   </motion.div>
-                  <p className="font-semibold text-gray-300 group-hover:text-white transition-colors">
+                  <p className="font-semibold text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors">
                     {achievement.text}
                   </p>
                 </motion.div>
@@ -307,28 +301,12 @@ const Statistics: React.FC = () => {
           className="text-center mt-16"
         >
           <div className="inline-flex flex-col items-center">
-            <p className="text-gray-300 mb-4 text-lg">
-              Ready to join our learning community?
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center space-x-2 group"
-            >
-              <motion.div
-                whileHover={{ scale: 1.2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <Users className="h-5 w-5" />
-              </motion.div>
-              <span>Start Learning Today</span>
-              <motion.div
-                whileHover={{ rotate: 12 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <TrendingUp className="h-5 w-5" />
-              </motion.div>
-            </motion.button>
+            <GradientAnimatedBtn
+              text="Start Learning Today"
+              leftIcon={<Users className="h-5 w-5 mr-2" />}
+              rightIcon={<TrendingUp className="h-5 w-5" />}
+              href="/login"
+            />
           </div>
         </motion.div>
       </div>

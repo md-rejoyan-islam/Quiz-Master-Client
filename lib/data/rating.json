@@ -1,0 +1,82 @@
+[
+  {
+    "id": "rating-001",
+    "userId": "user-001",
+    "quizId": "quizset-001",
+    "rating": 4,
+    "createdAt": "2023-03-07T10:00:00Z",
+    "updatedAt": "2023-03-07T10:00:00Z"
+  },
+  {
+    "id": "rating-002",
+    "userId": "user-002",
+    "quizId": "quizset-002",
+    "rating": 5,
+    "createdAt": "2023-03-14T11:00:00Z",
+    "updatedAt": "2023-03-14T11:00:00Z"
+  },
+  {
+    "id": "rating-003",
+    "userId": "user-003",
+    "quizId": "quizset-003",
+    "rating": 3,
+    "createdAt": "2023-03-17T12:00:00Z",
+    "updatedAt": "2023-03-17T12:00:00Z"
+  },
+  {
+    "id": "rating-004",
+    "userId": "user-004",
+    "quizId": "quizset-004",
+    "rating": 4,
+    "createdAt": "2023-03-22T10:00:00Z",
+    "updatedAt": "2023-03-22T10:00:00Z"
+  },
+  {
+    "id": "rating-005",
+    "userId": "user-005",
+    "quizId": "quizset-005",
+    "rating": 5,
+    "createdAt": "2023-03-27T15:00:00Z",
+    "updatedAt": "2023-03-27T15:00:00Z"
+  },
+  {
+    "id": "rating-006",
+    "userId": "user-006",
+    "quizId": "quizset-006",
+    "rating": 3,
+    "createdAt": "2023-04-02T11:00:00Z",
+    "updatedAt": "2023-04-02T11:00:00Z"
+  },
+  {
+    "id": "rating-007",
+    "userId": "user-007",
+    "quizId": "quizset-007",
+    "rating": 4,
+    "createdAt": "2023-04-06T12:00:00Z",
+    "updatedAt": "2023-04-06T12:00:00Z"
+  },
+  {
+    "id": "rating-008",
+    "userId": "user-008",
+    "quizId": "quizset-008",
+    "rating": 2,
+    "createdAt": "2023-04-11T13:00:00Z",
+    "updatedAt": "2023-04-11T13:00:00Z"
+  },
+  {
+    "id": "rating-009",
+    "userId": "user-009",
+    "quizId": "quizset-009",
+    "rating": 5,
+    "createdAt": "2023-04-16T14:00:00Z",
+    "updatedAt": "2023-04-16T14:00:00Z"
+  },
+  {
+    "id": "rating-010",
+    "userId": "user-010",
+    "quizId": "quizset-010",
+    "rating": 4,
+    "createdAt": "2023-04-21T15:00:00Z",
+    "updatedAt": "2023-04-21T15:00:00Z"
+  }
+]

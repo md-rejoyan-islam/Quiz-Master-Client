@@ -10,8 +10,11 @@ import {
   Trophy,
 } from "lucide-react";
 import React from "react";
+import AnimatedBackgroundPattern from "../animated-background-pattern";
 import BadgeBtn from "../button/badge-btn";
 import GradientAnimatedBtn from "../button/gradient-animated-btn";
+import SectionSubtitle from "./section-subtitle";
+import SectionTitle from "./section-title";
 
 const HowItWorks: React.FC = () => {
   const steps = [
@@ -101,23 +104,8 @@ const HowItWorks: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-900 to-purple-900/50 relative overflow-hidden">
-      {/* Animated Background Pattern */}
-      <motion.div
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-slate-900 to-purple-900/50 relative overflow-hidden">
+      <AnimatedBackgroundPattern />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
@@ -126,23 +114,18 @@ const HowItWorks: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
           <BadgeBtn
             icon={<MousePointer className="h-4 w-4 mr-2" />}
             text="  Simple & Effective Process"
           />
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            How to Take a
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-              Perfect Quiz
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Follow our streamlined process to maximize your learning experience
-            and achieve the best results
-          </p>
+          <SectionTitle firstLine="How to Take a" secondLine="Perfect Quiz" />
+          <SectionSubtitle
+            title="Follow our streamlined process to maximize your learning experience
+            and achieve the best results"
+          />
         </motion.div>
 
         {/* Steps Container */}
@@ -161,7 +144,7 @@ const HowItWorks: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-4 relative z-10"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 relative z-10"
           >
             {steps.map((step, index) => {
               const IconComponent = step.icon;
@@ -307,11 +290,12 @@ const HowItWorks: React.FC = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20">
+        <div className=" mt-12 sm:mt-16 md:mt-20">
           <GradientAnimatedBtn
             leftIcon={<Timer className="h-5 w-5" />}
             rightIcon={<ArrowRight className="h-5 w-5" />}
             text="Ready to Start? Take Your First Quiz!"
+            href="/quizzes"
           />
         </div>
       </div>
