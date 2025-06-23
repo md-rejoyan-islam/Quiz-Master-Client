@@ -5,10 +5,22 @@ import { QUIZ_SET_LABEL, QUIZ_SET_STATUS } from "@/lib/types";
 import { getQuizById } from "@/query/quizzes";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Quiz",
-  description: "Take a quiz and test your knowledge",
+import type { Metadata } from "next";
+
+type Props = {
+  params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id;
+
+  const post = getQuizById(id);
+
+  return {
+    title: post?.title || "Quiz Not Found",
+    description: post?.description || "No description available",
+  };
+}
 
 export default async function Quiz({
   params,
