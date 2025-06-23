@@ -1,18 +1,10 @@
 "use client";
 
+import AuthHeader from "@/components/auth/auth-header";
+import InputField from "@/components/auth/input-field";
+import PasswordField from "@/components/auth/password-field";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  Eye,
-  EyeOff,
-  GraduationCap,
-  Lock,
-  Mail,
-  Sparkles,
-  User,
-  UserPlus,
-} from "lucide-react";
+import { ArrowRight, Check, Mail, User, UserPlus } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -38,8 +30,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
     password: "",
     confirmPassword: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -109,31 +100,6 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
     }
   };
 
-  const getPasswordStrength = () => {
-    const password = formData.password;
-    let strength = 0;
-
-    if (password.length >= 8) strength++;
-    if (/[a-z]/.test(password)) strength++;
-    if (/[A-Z]/.test(password)) strength++;
-    if (/\d/.test(password)) strength++;
-    if (/[^a-zA-Z\d]/.test(password)) strength++;
-
-    return strength;
-  };
-
-  const getStrengthColor = (strength: number) => {
-    if (strength <= 2) return "bg-red-500";
-    if (strength <= 3) return "bg-yellow-500";
-    return "bg-green-500";
-  };
-
-  const getStrengthText = (strength: number) => {
-    if (strength <= 2) return "Weak";
-    if (strength <= 3) return "Medium";
-    return "Strong";
-  };
-
   return (
     <section className="py-12 min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -172,216 +138,54 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
           className="bg-slate-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-purple-500/20 overflow-hidden"
         >
           {/* Header */}
-          <div className="px-8 pt-8 pb-6 text-center relative">
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute top-4 right-4 opacity-20"
-            >
-              <Sparkles className="h-6 w-6 text-purple-400" />
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.6 }}
-              className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
-            >
-              <GraduationCap className="h-8 w-8 text-white" />
-            </motion.div>
-
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Join QuizMaster
-            </h1>
-            <p className="text-gray-300">
-              Create your account and start learning today
-            </p>
-          </div>
+          <AuthHeader
+            label="Join QuizMaster"
+            sublabel="Create your account and start learning today"
+          />
 
           {/* Form */}
           <div className="px-8 pb-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name
-                </label>
-                <div className="relative">
+              <InputField
+                type="text"
+                error={errors.name}
+                value={formData.name}
+                label={"Full Name"}
+                icon={
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.name ? "border-red-500" : "border-purple-500/30"
-                    }`}
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                {errors.name && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.name}
-                  </motion.p>
-                )}
-              </div>
-
+                }
+                handleInputChange={handleInputChange}
+                name={"name"}
+              />
               {/* Email Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
+              <InputField
+                type="email"
+                error={errors.email}
+                value={formData.email}
+                label={"Email Address"}
+                icon={
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.email ? "border-red-500" : "border-purple-500/30"
-                    }`}
-                    placeholder="Enter your email"
-                  />
-                </div>
-                {errors.email && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.email}
-                  </motion.p>
-                )}
-              </div>
+                }
+                handleInputChange={handleInputChange}
+                name={"email"}
+              />
 
               {/* Password Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type={showPassword ? "text" : "password"}
-                    value={formData.password}
-                    onChange={(e) =>
-                      handleInputChange("password", e.target.value)
-                    }
-                    className={`w-full pl-10 pr-12 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.password
-                        ? "border-red-500"
-                        : "border-purple-500/30"
-                    }`}
-                    placeholder="Create a strong password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-
-                {/* Password Strength Indicator */}
-                {formData.password && (
-                  <div className="mt-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex-1 bg-slate-600 rounded-full h-2">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{
-                            width: `${(getPasswordStrength() / 5) * 100}%`,
-                          }}
-                          className={`h-2 rounded-full transition-all duration-300 ${getStrengthColor(
-                            getPasswordStrength()
-                          )}`}
-                        />
-                      </div>
-                      <span
-                        className={`text-xs font-medium ${
-                          getPasswordStrength() <= 2
-                            ? "text-red-400"
-                            : getPasswordStrength() <= 3
-                            ? "text-yellow-400"
-                            : "text-green-400"
-                        }`}
-                      >
-                        {getStrengthText(getPasswordStrength())}
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {errors.password && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.password}
-                  </motion.p>
-                )}
-              </div>
-
-              {/* Confirm Password Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type={showConfirmPassword ? "text" : "password"}
-                    value={formData.confirmPassword}
-                    onChange={(e) =>
-                      handleInputChange("confirmPassword", e.target.value)
-                    }
-                    className={`w-full pl-10 pr-12 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.confirmPassword
-                        ? "border-red-500"
-                        : "border-purple-500/30"
-                    }`}
-                    placeholder="Confirm your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-                {errors.confirmPassword && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.confirmPassword}
-                  </motion.p>
-                )}
-              </div>
+              <PasswordField
+                value={formData.password}
+                label="Password"
+                handleInputChange={handleInputChange}
+                error={errors.password}
+                name="password"
+              />
+              <PasswordField
+                value={formData.confirmPassword}
+                label="Confirm Password"
+                handleInputChange={handleInputChange}
+                error={errors.confirmPassword}
+                name="confirmPassword"
+              />
 
               {/* Terms and Conditions */}
               <div>

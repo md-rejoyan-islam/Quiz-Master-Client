@@ -3,14 +3,26 @@ import SectionTitle from "@/components/home/section-title";
 import CircularBar from "@/components/result/circular-progress-bar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { getQuizById } from "@/query/quizzes";
 import clsx from "clsx";
+import { Metadata } from "next";
 import Link from "next/link";
 import "react-circular-progressbar/dist/styles.css";
 
-export const metadata = {
-  title: "Quiz Results",
-  description: "View your quiz results and review your answers",
+type Props = {
+  params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id;
+
+  const post = getQuizById(id);
+
+  return {
+    title: `Result | ${post?.title}` || "Quiz Not Found",
+    description: post?.description || "No description available",
+  };
+}
 
 const quizData = {
   id: 1,

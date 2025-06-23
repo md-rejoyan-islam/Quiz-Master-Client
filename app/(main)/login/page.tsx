@@ -1,19 +1,11 @@
 "use client";
 
+import AuthHeader from "@/components/auth/auth-header";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Eye,
-  EyeOff,
-  GraduationCap,
-  Lock,
-  LogIn,
-  Mail,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Lock, LogIn, Mail } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -120,36 +112,10 @@ const LoginPage: React.FC<LoginPageProps> = ({
           className="bg-slate-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-purple-500/20 overflow-hidden"
         >
           {/* Header */}
-          <div className="px-8 pt-8 pb-6 text-center relative">
-            <motion.div
-              animate={{
-                rotate: [0, 360],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute top-4 right-4 opacity-20"
-            >
-              <Sparkles className="h-6 w-6 text-purple-400" />
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.6 }}
-              className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
-            >
-              <GraduationCap className="h-8 w-8 text-white" />
-            </motion.div>
-
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Welcome Back!
-            </h1>
-            <p className="text-gray-300">
-              Sign in to continue your learning journey
-            </p>
-          </div>
+          <AuthHeader
+            label="Welcome Back!"
+            sublabel="Sign in to continue your learning journey"
+          />
 
           {/* Form */}
           <div className="px-8 pb-8">
