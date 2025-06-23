@@ -1,33 +1,35 @@
 "use client";
 
-import { QuizDifficulty } from "@/lib/types";
+import { Quiz, QuizLabel } from "@/lib/types";
 import { motion } from "framer-motion";
+import { Atom, Brain, Dna, Microscope } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+const icons = [
+  <Atom size={96} key={0} />,
+  <Brain size={96} key={1} />,
+  <Dna size={96} key={2} />,
+  <Microscope size={96} key={3} />,
+];
 
-interface QuizCardProps {
-  id: number;
-  title: string;
-  description: string;
-  difficulty: QuizDifficulty;
-  questionsCount: number;
-  icon: React.ReactNode;
-}
+type CardProps = Pick<
+  Quiz,
+  "id" | "label" | "title" | "description" | "questions"
+>;
 
-const QuizCard: React.FC<QuizCardProps> = ({
+const QuizCard: React.FC<CardProps> = ({
   id,
   title,
   description,
-  difficulty,
-  questionsCount,
-  icon,
+  questions,
+  label,
 }) => {
   const difficultyColor = {
-    [QuizDifficulty.Easy]:
+    [QuizLabel.Easy]:
       "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-    [QuizDifficulty.Medium]:
+    [QuizLabel.Medium]:
       "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-    [QuizDifficulty.Hard]:
+    [QuizLabel.Hard]:
       "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
   };
 
@@ -39,7 +41,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
         className="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-xl cursor-pointer"
       >
         <div className="absolute top-0 right-0 w-24 h-24 opacity-10">
-          {icon}
+          {icons[Math.floor(Math.random() * icons.length)]}
         </div>
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">
@@ -48,12 +50,12 @@ const QuizCard: React.FC<QuizCardProps> = ({
           <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
           <div className="flex justify-between items-center">
             <span
-              className={`px-2 py-1 rounded text-sm font-medium ${difficultyColor[difficulty]}`}
+              className={`px-2 py-1 rounded text-sm font-medium ${difficultyColor[label]}`}
             >
-              {difficulty}
+              {label}
             </span>
             <span className="text-gray-600 dark:text-gray-400 text-sm">
-              {questionsCount} questions
+              {questions?.length} questions
             </span>
           </div>
         </div>

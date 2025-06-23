@@ -2,7 +2,7 @@ import Footer from "@/components/shared/footer";
 import Header from "@/components/shared/header";
 
 export const metadata = {
-  title: "A fun and interactive quiz platform",
+  title: "Quiz Master",
   description: "A fun and interactive quiz platform for all knowledge levels",
 };
 

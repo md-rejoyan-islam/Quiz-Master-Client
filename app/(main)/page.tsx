@@ -1,55 +1,192 @@
 "use client";
 
-import QuizCard from "@/components/home/QuizCard";
-import { QuizDifficulty } from "@/lib/types";
-import { Atom, Brain, Dna, Microscope } from "lucide-react";
+import Hero from "@/components/home/hero";
+import HowItWorks from "@/components/home/how-it-work";
+import Quizzes from "@/components/home/quizzes";
+import Statistics from "@/components/home/statistics";
+import { Quiz, QuizLabel, QuizStatus } from "@/lib/types";
 
-const quizzes = [
+interface QuizTypes extends Omit<Quiz, "user"> {
+  isAttempt: boolean;
+}
+
+const quizzes: QuizTypes[] = [
   {
-    id: 1,
+    id: "1",
     title: "General Knowledge",
     description: "Test your knowledge on various topics",
-    difficulty: QuizDifficulty.Hard,
-    questionsCount: 20,
-    icon: <Brain size={96} />,
+    createdAt: "2022-10-24",
+    updatedAt: "20201-01-23",
+    status: QuizStatus.PUBLISHED,
+    label: QuizLabel.Easy,
+    isAttempt: true, // if user logged in and attemp this quiz
+    questions: [
+      {
+        id: "01",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "011",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "02",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+    ],
+    userId: "",
+    attempts: [],
   },
   {
-    id: 2,
+    id: "2",
     title: "Science Quiz",
     description: "Explore the wonders of science",
-    difficulty: QuizDifficulty.Medium,
-    questionsCount: 15,
-    icon: <Dna size={96} />,
+    createdAt: "2022-10-24",
+    updatedAt: "20201-01-23",
+    status: QuizStatus.DRAFT,
+    label: QuizLabel.Easy,
+    isAttempt: true, // if user logged in and attemp this quiz
+    questions: [
+      {
+        id: "01",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "02",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+    ],
+    userId: "",
+    attempts: [],
   },
   {
-    id: 3,
+    id: "3",
     title: "Physics Challenge",
     description: "Dive into the world of physics",
-    difficulty: QuizDifficulty.Easy,
-    questionsCount: 10,
-    icon: <Atom size={96} />,
+    createdAt: "2022-10-24",
+    updatedAt: "20201-01-23",
+    status: QuizStatus.DRAFT,
+    label: QuizLabel.Medium,
+    isAttempt: true, // if user logged in and attemp this quiz
+    questions: [
+      {
+        id: "01",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "02",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+    ],
+    userId: "",
+    attempts: [],
   },
   {
-    id: 4,
+    id: "4",
     title: "Biology Basics",
     description: "Learn about living organisms",
-    difficulty: QuizDifficulty.Medium,
-    questionsCount: 12,
-    icon: <Microscope size={96} />,
+    createdAt: "2022-10-24",
+    updatedAt: "20201-01-23",
+    status: QuizStatus.DRAFT,
+    label: QuizLabel.Easy,
+    isAttempt: true, // if user logged in and attemp this quiz
+    questions: [
+      {
+        id: "01",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "02",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+      {
+        id: "03",
+        quizId: "01111",
+        question: "this is question",
+        options: ["A", "B", "C", "D"],
+        correctAnswers: ["A", "B"],
+        marks: 5,
+        createdAt: "2022-10-24",
+        updatedAt: "20201-01-23",
+      },
+    ],
+    userId: "",
+    attempts: [],
   },
 ];
 
 export default function Home() {
   return (
-    <div className="px-4 py-8 max-screen-w">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
-        Available Quizzes
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {quizzes.map((quiz, index) => (
-          <QuizCard key={index} {...quiz} />
-        ))}
-      </div>
-    </div>
+    <section className="">
+      <Hero />
+      <HowItWorks />
+      <Statistics />
+      {/* <div className="px-4 py-8 max-screen-w">
+        <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
+          Available Quizzes
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {quizzes.map((quiz, index) => (
+            <QuizCard key={index} {...quiz} />
+          ))}
+        </div>
+      </div> */}
+      <Quizzes />
+    </section>
   );
 }

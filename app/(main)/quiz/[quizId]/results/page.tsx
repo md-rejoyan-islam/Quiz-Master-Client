@@ -50,31 +50,31 @@ export default function ResultsPage() {
   return (
     <div className=" max-screen-w px-4 py-12">
       <div className="">
-        <h1 className="text-4xl font-bold mb-2 text-center">
+        <h1 className="text-4xl text-white font-bold mb-2 text-center">
           {quizData.title}
         </h1>
-        <p className="text-gray-400 mb-12 text-center">
+        <p className="text-white/70 mb-12 text-center">
           {quizData.description}
         </p>
 
         <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-8">
-          <div className=" space-y-4 text-lg shadow-md p-6 rounded-xl h-full bg-white dark:bg-gray-800 order-2 md:order-1">
-            <div className="flex justify-between   text-gray-600 dark:text-gray-400">
+          <div className=" space-y-4 text-lg shadow-md p-6 rounded-xl h-full bg-slate-800/50 border-purple-500/50 order-2 md:order-1">
+            <div className="flex justify-between   text-white/70">
               <span>Questions:</span>
               <span>10</span>
             </div>
-            <div className="flex justify-between  text-gray-600 dark:text-gray-400">
+            <div className="flex justify-between  text-white/70">
               <span>Correct:</span>
               <span>{3}</span>
             </div>
-            <div className="flex justify-between  text-gray-600 dark:text-gray-400">
+            <div className="flex justify-between  text-white/70">
               <span>Wrong:</span>
               <span>{2}</span>
             </div>
 
             <div className="pt-3">
               <Link
-                href={`/leaderboard/${quizId}`}
+                href={`/quiz/${quizId}/leaderboard`}
                 className=" bg-blue-600  text-white hover:bg-blue-700  py-2 px-3.5 rounded-md text-sm"
               >
                 View Leaderboard
@@ -82,7 +82,7 @@ export default function ResultsPage() {
             </div>
           </div>
 
-          <div className="order-1 md:order-2 grid grid-cols-2 gap-4 items-center shadow-md  p-6  rounded-md h-full bg-white dark:bg-gray-800 ">
+          <div className="order-1 md:order-2 grid grid-cols-2 gap-4 items-center shadow-md  p-6  rounded-md h-full bg-slate-800/50 text-white ">
             <div>
               <h3 className="text-3xl font-bold">5/10</h3>
               <p>Your Mark</p>
@@ -100,15 +100,15 @@ export default function ResultsPage() {
           <div className="grid md:grid-cols-2 gap-6 ">
             {quizData.questions.map((question, index) => (
               <div
-                key={question.id}
-                className="bg-white shadow-sm dark:bg-gray-800 rounded-lg p-6"
+                key={index}
+                className="bg-slate-800/50 text-white/70 shadow-sm  rounded-lg p-6"
               >
                 <h3 className="text-xl font-semibold mb-4">
                   {index + 1}. {question.text}
                 </h3>
                 <div className="space-y-2">
                   {question.options.map((option, optionIndex) => (
-                    <div key={index}>
+                    <div key={optionIndex + "" + index}>
                       <div
                         className={clsx(
                           "flex items-center px-1 py-1 rounded-md  space-x-2",

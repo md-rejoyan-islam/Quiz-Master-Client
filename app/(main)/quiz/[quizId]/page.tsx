@@ -14,56 +14,70 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Quiz, QuizLabel, QuizStatus } from "@/lib/types";
 import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface Question {
-  id: number;
-  text: string;
-  options: string[];
-  correctAnswers: number[];
-}
-
-interface Quiz {
-  id: number;
-  title: string;
-  description: string;
-  questions: Question[];
+interface QuizTypes extends Omit<Quiz, "user"> {
+  createdAt?: string | Date;
 }
 
 // Mock data - replace with actual API call in production
-const quizData: Quiz = {
-  id: 1,
+const quizData: QuizTypes = {
+  id: "1",
   title: "React Hooks Quiz",
   description:
     "A quiz on React hooks like useState, useEffect, and useContext.",
   questions: [
     {
-      id: 1,
-      text: "Which of the following is NOT a binary tree traversal method?",
+      id: "1",
+      question: "Which of the following is NOT a binary tree traversal method?",
       options: ["Inorder", "Preorder", "Postorder", "Crossorder"],
       correctAnswers: [3],
+      quizId: "1",
+      marks: 5,
+      createdAt: "2020-12-23",
+      updatedAt: "2012-11-12",
     },
     {
-      id: 2,
-      text: "What is the maximum number of nodes at level 'L' in a binary tree?",
+      id: "2",
+      question:
+        "What is the maximum number of nodes at level 'L' in a binary tree?",
       options: ["2^L", "L", "2^(L-1)", "2L"],
       correctAnswers: [0],
+      quizId: "1",
+      marks: 5,
+      createdAt: "2020-12-23",
+      updatedAt: "2012-11-12",
     },
     {
-      id: 3,
-      text: "What is the height of an empty binary tree?",
+      id: "3",
+      question: "What is the height of an empty binary tree?",
       options: ["0", "-1", "1", "Undefined"],
       correctAnswers: [1],
+      quizId: "1",
+      marks: 5,
+      createdAt: "2020-12-23",
+      updatedAt: "2012-11-12",
     },
     {
-      id: 4,
-      text: "What is the height of an empty binary tree?",
+      id: "4",
+      question: "What is the height of an empty binary tree?",
       options: ["0", "-1", "1", "Undefined"],
       correctAnswers: [1],
+      quizId: "1",
+      marks: 5,
+      createdAt: "2020-12-23",
+      updatedAt: "2012-11-12",
     },
   ],
+  createdAt: "2021-23-12",
+  updatedAt: "2012-12-12",
+  label: QuizLabel.Easy,
+  status: QuizStatus.DRAFT,
+  userId: "12",
+  attempts: [],
 };
 
 export default function QuizPage() {
@@ -114,25 +128,23 @@ export default function QuizPage() {
 
   return (
     <div className="px-4 py-8 max-screen-w">
-      <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">
+      <h1 className="text-3xl font-bold mb-2 text-white text-center">
         {quizData.title}
       </h1>
-      <p className="text-gray-600 dark:text-gray-400 mb-8 text-center">
-        {quizData.description}
-      </p>
+      <p className="text-white/70 mb-8 text-center">{quizData.description}</p>
 
       <div className="flex flex-col md:flex-row gap-8 mb-8">
         <div className="w-full md:w-1/2">
-          <div className="bg-gray-50 shadow-md  dark:bg-gray-800/50 rounded-lg p-6 h-full">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+          <div className="bg-slate-800/50 shadow-md   rounded-lg p-6 h-full">
+            <h3 className="text-lg font-semibold mb-4 text-white">
               Quiz Progress
             </h3>
             <div className="space-y-4">
-              <div className="flex justify-between  text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex justify-between  text-sm text-white/70">
                 <span>Total questions:</span>
                 <span>{quizData.questions.length}</span>
               </div>
-              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex justify-between text-sm text-white/70">
                 <span>Participation:</span>
                 <span>{participationCount}</span>
               </div>
@@ -154,8 +166,8 @@ export default function QuizPage() {
           </div>
         </div>
         <div className="w-full md:w-1/2">
-          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-6 mb-6 shadow-md">
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+          <div className="bg-slate-800/50 rounded-lg p-6 mb-6 shadow-md">
+            <h2 className="text-xl font-semibold mb-6 text-white">
               {currentQuestionIndex + 1}. {currentQuestion.text}
             </h2>
             <div className="space-y-3">
@@ -172,7 +184,7 @@ export default function QuizPage() {
                   />
                   <Label
                     htmlFor={`option-${index}`}
-                    className="text-base text-gray-700 dark:text-gray-300"
+                    className="text-base text-white/80 cursor-pointer"
                   >
                     {option}
                   </Label>
@@ -201,7 +213,7 @@ export default function QuizPage() {
                 <AlertDialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="dark:bg-violet-600 dark:border-violet-600"
+                    className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white border-blue-600"
                   >
                     Submit Quiz
                   </Button>

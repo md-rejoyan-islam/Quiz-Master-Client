@@ -32,6 +32,8 @@ interface QuizDetails {
 }
 
 const generateLeaderboardData = (quizId: number): QuizLeaderboardEntry[] => {
+  console.log(quizId);
+
   return Array.from({ length: 50 }, (_, i) => {
     const correctAnswers = Math.floor(Math.random() * 20);
     const wrongAnswers = Math.floor(Math.random() * 10);
@@ -116,41 +118,37 @@ function QuizLeaderboard() {
       <div className="flex items-center mb-8">
         <Link
           href="/leaderboard"
-          className="mr-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+          className="mr-4 p-2 rounded-full bg-slate-700/50 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
         >
           <ArrowLeft size={20} />
         </Link>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">
-          {quiz.title} Leaderboard
+        <h1 className="text-3xl font-bold text-white">
+          {quiz?.title} Leaderboard
         </h1>
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-          Quiz Details
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          {quiz.description}
-        </p>
+      <div className="bg-slate-700/50 rounded-lg shadow-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4 text-white">Quiz Details</h2>
+        <p className="text-white/80 mb-4">{quiz?.description}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="flex items-center text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-white/70">
             <Calendar className="mr-2" size={20} />
             <span>Date: {quiz.date}</span>
           </div>
-          <div className="flex items-center text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-white/70">
             <Users className="mr-2" size={20} />
             <span>Participants: {quiz.participants}</span>
           </div>
-          <div className="flex items-center text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-white/70">
             <Clock className="mr-2" size={20} />
             <span>Duration: {quiz.duration}</span>
           </div>
         </div>
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+      <div className="bg-slate-800/50 rounded-lg shadow-lg p-6">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="text-left text-gray-600 dark:text-gray-400">
+              <tr className="text-left text-white/70">
                 <th className="py-2 px-4">Rank</th>
                 <th className="py-2 px-4">Name</th>
                 <th className="py-2 px-4">Score</th>

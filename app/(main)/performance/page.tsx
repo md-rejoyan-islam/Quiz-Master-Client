@@ -45,10 +45,10 @@ export default function Performance() {
       transition={{ duration: 0.5 }}
       className="max-screen-w mx-auto px-4 py-8"
     >
-      <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
+      <h1 className="text-3xl font-bold mb-8 text-white ">
         Overall Performance
       </h1>
-      <Card className="dark:bg-gray-800">
+      <Card className="bg-slate-800/50 text-white border-purple-500/50">
         <CardHeader>
           <CardTitle>Quiz Performance</CardTitle>
           <CardDescription>

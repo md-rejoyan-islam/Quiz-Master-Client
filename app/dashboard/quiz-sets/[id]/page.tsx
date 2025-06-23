@@ -136,7 +136,7 @@ export default function QuizSetDetailPage() {
             transition={{ delay: index * 0.1 }}
             whileHover={{ scale: 1.02 }}
           >
-            <Card>
+            <Card className="dark:bg-gray-800">
               <CardHeader>
                 <CardTitle>Question {index + 1}</CardTitle>
                 <CardDescription>{question.text}</CardDescription>

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "02",
+    "title": "title",
+    "description": "descriptiton",
+    "createdAt": "2022-10-24",
+    "updateddAt": "20201-01-23",
+    "status": "draft",
+    "userId": "032323231",
+    "user": {},
+    "label": "hard",
+    "attempts": [],
+    "questions": [
+      {
+        "id": "01",
+        "quizId": "01111",
+        "quiz": {},
+        "question": "this is question",
+        "options": ["A", "B", "C", "D"],
+        "correctAnswers": ["A", "B"],
+        "marks": 5,
+        "createdAt": "2022-10-24",
+        "updatedAt": "20201-01-23"
+      }
+    ]
+  },
+  {
+    "id": "03",
+    "title": "title2",
+    "description": "descriptiton2",
+    "createdAt": "2022-10-26",
+    "updateddAt": "20201-01-27",
+    "status": "published",
+    "userId": "032323231",
+    "user": {},
+    "label": "hard",
+    "attempts": [],
+    "questions": [
+      {
+        "id": "01",
+        "quizId": "01111",
+        "quiz": {},
+        "question": "this is question",
+        "options": ["A", "B", "C", "D"],
+        "correctAnswers": ["A", "B"],
+        "marks": 5,
+        "createdAt": "2022-10-24",
+        "updatedAt": "20201-01-23"
+      }
+    ]
+  }
+]

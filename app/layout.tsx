@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <body
-          className={`${inter.className} antialiased min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300`}
+          className={`${inter.className} antialiased min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 transition-colors duration-300`}
         >
           {children}
         </body>

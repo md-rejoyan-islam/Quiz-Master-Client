@@ -1,0 +1,10 @@
+[
+  {
+    "questionId": "01",
+    "answers": ["a", "b"]
+  },
+  {
+    "questionId": "02",
+    "answers": ["a"]
+  }
+]

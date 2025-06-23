@@ -1,63 +1,21 @@
 "use client";
-
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  Eye,
-  EyeOff,
-  GraduationCap,
-  Lock,
-  Mail,
-  Sparkles,
-  User,
-  UserPlus,
-} from "lucide-react";
-import Link from "next/link";
+import { CheckCircle, Eye, EyeOff, Lock, Shield, Sparkles } from "lucide-react";
 import React, { useState } from "react";
 
-export interface UserType {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-}
-
-interface RegisterPageProps {
-  onRegister: (user: UserType) => void;
-  onShowLogin: () => void;
-}
-
-const RegisterPage: React.FC<RegisterPageProps> = ({
-  onRegister,
-  onShowLogin,
-}) => {
+const ResetPasswordPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
     password: "",
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Full name is required";
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters";
-    }
-
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email";
-    }
 
     if (!formData.password) {
       newErrors.password = "Password is required";
@@ -74,12 +32,13 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       newErrors.confirmPassword = "Passwords do not match";
     }
 
-    if (!acceptTerms) {
-      newErrors.terms = "Please accept the terms and conditions";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const onSubmit = (password: string) => {
+    // Handle successful password reset logic here
+    console.log("Password reset successful:", password);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,13 +50,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
 
     // Simulate API call
     setTimeout(() => {
-      const user: UserType = {
-        id: Date.now().toString(),
-        email: formData.email,
-        name: formData.name,
-        avatar: undefined,
-      };
-      onRegister(user);
+      onSubmit(formData.password);
+      setIsSuccess(true);
       setIsLoading(false);
     }, 2000);
   };
@@ -133,6 +87,75 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
     if (strength <= 3) return "Medium";
     return "Strong";
   };
+
+  if (isSuccess) {
+    return (
+      <section className="py-12 min-h-screen flex items-center justify-center relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              rotate: [360, 180, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-md w-full mx-auto px-4 relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="bg-slate-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-purple-500/20 overflow-hidden text-center p-8"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+            >
+              <CheckCircle className="h-10 w-10 text-white" />
+            </motion.div>
+
+            <h1 className="text-3xl font-bold text-white mb-4">
+              Password Reset Successful!
+            </h1>
+            <p className="text-gray-300 mb-8 leading-relaxed">
+              Your password has been successfully updated. You can now sign in
+              with your new password.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-sm text-gray-400 mb-6"
+            >
+              Redirecting to login page in 3 seconds...
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -192,82 +215,22 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
               transition={{ duration: 0.6 }}
               className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
             >
-              <GraduationCap className="h-8 w-8 text-white" />
+              <Shield className="h-8 w-8 text-white" />
             </motion.div>
 
             <h1 className="text-3xl font-bold text-white mb-2">
-              Join QuizMaster
+              Reset Your Password
             </h1>
-            <p className="text-gray-300">
-              Create your account and start learning today
-            </p>
+            <p className="text-gray-300">Enter your new password below</p>
           </div>
 
           {/* Form */}
           <div className="px-8 pb-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name
-                </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.name ? "border-red-500" : "border-purple-500/30"
-                    }`}
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                {errors.name && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.name}
-                  </motion.p>
-                )}
-              </div>
-
-              {/* Email Field */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <motion.input
-                    whileFocus={{ scale: 1.02 }}
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                      errors.email ? "border-red-500" : "border-purple-500/30"
-                    }`}
-                    placeholder="Enter your email"
-                  />
-                </div>
-                {errors.email && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.email}
-                  </motion.p>
-                )}
-              </div>
-
               {/* Password Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Password
+                  New Password
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -283,7 +246,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
                         ? "border-red-500"
                         : "border-purple-500/30"
                     }`}
-                    placeholder="Create a strong password"
+                    placeholder="Enter your new password"
                   />
                   <button
                     type="button"
@@ -342,7 +305,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
               {/* Confirm Password Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Confirm Password
+                  Confirm New Password
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -358,7 +321,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
                         ? "border-red-500"
                         : "border-purple-500/30"
                     }`}
-                    placeholder="Confirm your password"
+                    placeholder="Confirm your new password"
                   />
                   <button
                     type="button"
@@ -383,42 +346,22 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
                 )}
               </div>
 
-              {/* Terms and Conditions */}
-              <div>
-                <motion.label
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={acceptTerms}
-                      onChange={(e) => setAcceptTerms(e.target.checked)}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                        acceptTerms
-                          ? "bg-purple-600 border-purple-600"
-                          : "border-purple-500/30 bg-slate-700/50"
-                      }`}
-                    >
-                      {acceptTerms && <Check className="h-3 w-3 text-white" />}
-                    </div>
+              {/* Security Notice */}
+              <div className="bg-slate-700/30 border border-purple-500/20 rounded-xl p-4">
+                <div className="flex items-start space-x-3">
+                  <Shield className="h-5 w-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-sm font-medium text-white mb-1">
+                      Security Tips
+                    </h4>
+                    <ul className="text-xs text-gray-300 space-y-1">
+                      <li>• Use at least 8 characters</li>
+                      <li>• Include uppercase and lowercase letters</li>
+                      <li>• Add numbers and special characters</li>
+                      <li>• Avoid common words or personal information</li>
+                    </ul>
                   </div>
-                  <div className="flex flex-col text-sm gap-2 text-white/80">
-                    <p>Check this if you&apos;re registering as an admin</p>
-                  </div>
-                </motion.label>
-                {errors.terms && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm mt-1"
-                  >
-                    {errors.terms}
-                  </motion.p>
-                )}
+                </div>
               </div>
 
               {/* Submit Button */}
@@ -441,29 +384,12 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
                   />
                 ) : (
                   <>
-                    <UserPlus className="h-5 w-5" />
-                    <span>Create Account</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <Shield className="h-5 w-5" />
+                    <span>Update Password</span>
                   </>
                 )}
               </motion.button>
             </form>
-
-            {/* Login Link */}
-            <div className="mt-8 text-center">
-              <p className="text-gray-400">
-                Already have an account?{" "}
-                <Link href={"/login"}>
-                  <motion.button
-                    onClick={onShowLogin}
-                    whileHover={{ scale: 1.05 }}
-                    className="text-purple-400 hover:text-purple-300 font-medium transition-colors"
-                  >
-                    Sign in here
-                  </motion.button>
-                </Link>
-              </p>
-            </div>
           </div>
         </motion.div>
       </div>
@@ -471,4 +397,4 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
   );
 };
 
-export default RegisterPage;
+export default ResetPasswordPage;

@@ -110,19 +110,17 @@ function Leaderboard() {
       transition={{ duration: 0.5 }}
       className="max-screen-w px-4 py-8"
     >
-      <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-200">
-        Leaderboard
-      </h1>
+      <h1 className="text-3xl font-bold mb-8 text-white">Leaderboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+          <div className="bg-slate-800/50 rounded-lg shadow-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold mb-4 text-white">
               Global Rankings
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="text-left text-gray-600 dark:text-gray-400">
+                  <tr className="text-left text-white/70">
                     <th className="py-2 px-4">Rank</th>
                     <th className="py-2 px-4">Name</th>
                     <th className="py-2 px-4">Score</th>
@@ -133,7 +131,7 @@ function Leaderboard() {
                   {paginatedData.map((entry, index) => (
                     <motion.tr
                       key={entry.id}
-                      className="border-t border-gray-200 dark:border-gray-700"
+                      className="border-t border-purple-300/50"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -149,10 +147,7 @@ function Leaderboard() {
                               />
                             )}
                             {index === 1 && (
-                              <Award
-                                className="inline text-gray-400"
-                                size={16}
-                              />
+                              <Award className="inline text-white" size={16} />
                             )}
                             {index === 2 && (
                               <Medal
@@ -193,19 +188,19 @@ function Leaderboard() {
               </button>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+          <div className="bg-slate-800/50 rounded-lg shadow-lg p-6">
+            <h2 className="text-xl font-semibold mb-4 text-white">
               Your Attended Quizzes
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {attendedQuizzes.map((quiz) => (
-                <Link key={quiz.id} href={`/leaderboard/${quiz.id}`}>
+                <Link key={quiz.id} href={`/quiz/${quiz.id}/leaderboard`}>
                   <motion.div
-                    className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
+                    className="bg-purple-800/20 rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    <h3 className="font-semibold text-white mb-2">
                       {quiz.title}
                     </h3>
                     <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
@@ -239,34 +234,30 @@ function Leaderboard() {
           </div>
         </div>
         <div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+          <div className="bg-slate-800/50 rounded-lg shadow-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold mb-4 text-white">
               Your Position
             </h2>
             <div className="text-center">
               <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">
                 {userPosition}
               </p>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Keep up the good work!
-              </p>
+              <p className="text-white/70 mt-2">Keep up the good work!</p>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+          <div className="bg-slate-800/50 rounded-lg shadow-lg p-6">
+            <h2 className="text-xl font-semibold mb-4 text-white">
               Quiz Leaderboards
             </h2>
             <ul className="space-y-2">
               {quizzes.map((quiz) => (
                 <li key={quiz.id}>
                   <Link
-                    href={`/leaderboard/${quiz.id}`}
-                    className="block p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
+                    href={`/quiz/${quiz.id}/leaderboard`}
+                    className="block p-3 rounded-lg bg-purple-200/50 hover:bg-gray-100 transition-colors duration-200"
                   >
-                    <span className="font-medium text-gray-800 dark:text-gray-200">
-                      {quiz.title}
-                    </span>
-                    <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-medium text-white">{quiz.title}</span>
+                    <span className="ml-2 text-sm text-white/70">
                       {quiz.participants} participants
                     </span>
                   </Link>
