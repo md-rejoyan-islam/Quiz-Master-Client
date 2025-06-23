@@ -83,7 +83,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <section className="py-12 min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-b from-transparent via-transparent to-slate-900 min-h-[calc(100vh-65px)] flex items-center justify-center relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
