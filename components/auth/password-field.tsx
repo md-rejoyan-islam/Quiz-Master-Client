@@ -11,11 +11,13 @@ const PasswordField = ({
   handleInputChange,
   error,
   name,
+  showStrengthIndicator = true,
 }: {
   value: string;
   label: string;
   error: string;
   name: string;
+  showStrengthIndicator?: boolean;
   handleInputChange: (field: string, value: string) => void;
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -76,7 +78,7 @@ const PasswordField = ({
       </div>
 
       {/* Password Strength Indicator */}
-      {value && name !== "confirmPassword" && (
+      {value && showStrengthIndicator && (
         <div className="mt-2">
           <div className="flex items-center space-x-2">
             <div className="flex-1 bg-slate-600 rounded-full h-2">
