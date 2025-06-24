@@ -30,7 +30,7 @@ import { useState } from "react";
 
 const navItems = [
   { icon: Home, label: "Overview", href: "/dashboard" },
-  { icon: BookOpen, label: "Quiz Sets", href: "/dashboard/quiz-sets" },
+  { icon: BookOpen, label: "Quiz Sets", href: "/dashboard/quiz-management" },
   { icon: BookOpen, label: "Leaderboard", href: "/dashboard/leaderboard" },
   { icon: Users, label: "Users", href: "/dashboard/users" },
 ];
@@ -47,7 +47,7 @@ const navigationItems = [
     label: "Quiz Management",
     icon: BookOpen,
     color: "from-green-500 to-emerald-500",
-    href: "/dashboard/quiz-sets",
+    href: "/dashboard/quiz-management",
   },
   {
     id: "leaderboard",

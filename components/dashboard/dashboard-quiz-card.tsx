@@ -112,7 +112,7 @@ export function QuizCard({
           </div>
           <Button
             variant="default"
-            onClick={() => router.push(`/dashboard/quiz-sets/${id}`)}
+            onClick={() => router.push(`/dashboard/quiz-management/${id}`)}
           >
             View Details
           </Button>

@@ -662,7 +662,7 @@ export default function QuizSetsPage() {
             </p>
           </div>
 
-          <Link href="/dashboard/quiz-sets/new">
+          <Link href="/dashboard/quiz-management/create">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -891,7 +891,7 @@ export default function QuizSetsPage() {
                   </div>
 
                   <div className="mb-4">
-                    <Link href={`/dashboard/quiz-sets/${quiz.id}`}>
+                    <Link href={`/dashboard/quiz-management/${quiz.id}`}>
                       <h3 className="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
                         {quiz.title}
                       </h3>
