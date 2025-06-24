@@ -14,7 +14,7 @@ const DashboardPageHeader = ({
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="bg-slate-800/30 backdrop-blur-sm border-b border-purple-500/20 px-8 py-4"
+      className="hidden md:block bg-slate-800/30 backdrop-blur-sm border-b border-purple-500/20 px-8 py-4"
     >
       <div className="flex items-center justify-between">
         <div>
@@ -24,7 +24,7 @@ const DashboardPageHeader = ({
 
         <div className="flex items-center space-x-4">
           {/* Search */}
-          <div className="relative">
+          <div className="relative hidden lg:block">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"

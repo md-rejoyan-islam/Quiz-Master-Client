@@ -92,9 +92,14 @@ export default function DashboardSidebar() {
         </div>
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="absolute hidden md:block -right-3 bg-purple-800/50 hover:text-white hover:scale-105    w-[25px] h-[25px ] flex items-center justify-center rounded-full  text-white/70 top-7 cursor-pointer"
+          className="absolute -right-3 bg-purple-800/50 hover:text-white hover:scale-105    w-[25px] h-[25px ] flex items-center justify-center rounded-full  text-white/70 top-7 cursor-pointer"
         >
-          <LucideChevronLeft className="p-0.5" />
+          <LucideChevronLeft
+            className={clsx(
+              sidebarCollapsed ? "rotate-180" : "",
+              "p-0.5 transition-all duration-300"
+            )}
+          />
         </button>
       </div>
       <nav className="space-y-2 flex-1 px-3">
@@ -209,7 +214,11 @@ export default function DashboardSidebar() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-64  p-0">
+              <SheetContent
+                side="left"
+                className={clsx(sidebarCollapsed ? "w-[76px]" : "w-64", "p-0")}
+                showCross={!sidebarCollapsed}
+              >
                 <SheetHeader />
                 <SheetTitle />
                 <SheetDescription />
