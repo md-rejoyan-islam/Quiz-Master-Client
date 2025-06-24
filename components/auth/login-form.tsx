@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { ArrowRight, GraduationCap, LogIn, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
-import AuthHeader from "./auth-header";
+import FormHeader from "./form-header";
 import InputField from "./input-field";
 import PasswordField from "./password-field";
 import SubmitButton from "./submit-button";
@@ -69,88 +69,86 @@ const LoginForm = () => {
     }, 1500);
   };
   return (
-    <div className="max-w-md w-full mx-auto px-4 relative">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="bg-slate-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-purple-500/20 overflow-hidden"
-      >
-        {/* Header */}
-        <AuthHeader
-          label="Welcome Back!"
-          sublabel="Sign in to continue your learning journey"
-        />
+    <>
+      {/* Header */}
+      <FormHeader
+        icon={<GraduationCap className="h-8 w-8 text-white" />}
+        title="Welcome Back!"
+        subTitle="Sign in to continue your learning journey"
+      />
 
-        {/* Form */}
-        <div className="px-8 pb-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <InputField
-              type="email"
-              error={errors.email}
-              value={formData.email}
-              label={"Email Address"}
-              icon={
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              }
-              handleInputChange={handleInputChange}
-              name={"email"}
-            />
+      {/* Form */}
+      <div className="pt-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <InputField
+            type="email"
+            error={errors.email}
+            value={formData.email}
+            label={"Email Address"}
+            icon={
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            }
+            handleInputChange={handleInputChange}
+            name={"email"}
+          />
 
-            <PasswordField
-              value={formData.password}
-              label="Password"
-              handleInputChange={handleInputChange}
-              error={errors.password}
-              name="password"
-              showStrengthIndicator={false}
-            />
+          <PasswordField
+            value={formData.password}
+            label="Password"
+            handleInputChange={handleInputChange}
+            error={errors.password}
+            name="password"
+            showStrengthIndicator={false}
+          />
 
-            <div className="flex items-center gap-3">
-              <Checkbox
-                id="terms"
-                className="border-white/80 data-[state=checked]:border-purple-600 data-[state=checked]:bg-purple-600 data-[state=checked]:text-white dark:data-[state=checked]:border-purple-700 dark:data-[state=checked]:bg-purple-700
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="terms"
+              className="border-white/80 data-[state=checked]:border-purple-600 data-[state=checked]:bg-purple-600 data-[state=checked]:text-white dark:data-[state=checked]:border-purple-700 dark:data-[state=checked]:bg-purple-700
                 "
-              />
-              <Label htmlFor="terms" className="text-white/80">
-                Check this if you&apos;re logging in as an admin
-              </Label>
-            </div>
-
-            {/* Forgot Password Link */}
-            <div className="text-right">
-              <Link href={"/forgot-password"}>
-                <motion.button
-                  type="button"
-                  whileHover={{ scale: 1.05 }}
-                  className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
-                >
-                  Forgot your password?
-                </motion.button>
-              </Link>
-            </div>
-
-            {/* Submit Button */}
-            <SubmitButton isLoading={isLoading} />
-          </form>
-
-          {/* Register Link */}
-          <div className="mt-8 text-center">
-            <p className="text-gray-400">
-              Don&apos;t have an account?{" "}
-              <Link href={"/register"}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  className="text-purple-400 hover:text-purple-300 font-medium transition-colors"
-                >
-                  Create one now
-                </motion.button>
-              </Link>
-            </p>
+            />
+            <Label htmlFor="terms" className="text-white/80">
+              Check this if you&apos;re logging in as an admin
+            </Label>
           </div>
+
+          {/* Forgot Password Link */}
+          <div className="text-right">
+            <Link href={"/forgot-password"}>
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.05 }}
+                className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
+              >
+                Forgot your password?
+              </motion.button>
+            </Link>
+          </div>
+
+          {/* Submit Button */}
+          <SubmitButton isLoading={isLoading}>
+            <LogIn className="h-5 w-5" />
+            <span>Sign In</span>
+            <ArrowRight className="h-4 w-4" />
+          </SubmitButton>
+        </form>
+
+        {/* Register Link */}
+        <div className="mt-8 text-center">
+          <p className="text-gray-400">
+            Don&apos;t have an account?{" "}
+            <Link href={"/register"}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="text-purple-400 hover:text-purple-300 font-medium transition-colors"
+              >
+                Create one now
+              </motion.button>
+            </Link>
+          </p>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </>
   );
 };
 

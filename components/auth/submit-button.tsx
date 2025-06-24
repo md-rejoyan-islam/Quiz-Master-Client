@@ -1,8 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, LogIn } from "lucide-react";
 
-const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
+const SubmitButton = ({
+  isLoading,
+  children,
+}: {
+  isLoading: boolean;
+  children: React.ReactNode;
+}) => {
   return (
     <motion.button
       type="submit"
@@ -22,11 +27,7 @@ const SubmitButton = ({ isLoading }: { isLoading: boolean }) => {
           className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
         />
       ) : (
-        <>
-          <LogIn className="h-5 w-5" />
-          <span>Sign In</span>
-          <ArrowRight className="h-4 w-4" />
-        </>
+        <>{children}</>
       )}
     </motion.button>
   );
