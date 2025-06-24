@@ -12,12 +12,14 @@ const PasswordField = ({
   error,
   name,
   showStrengthIndicator = true,
+  placeholder,
 }: {
   value: string;
   label: string;
   error: string;
   name: string;
   showStrengthIndicator?: boolean;
+  placeholder?: string;
   handleInputChange: (field: string, value: string) => void;
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -62,7 +64,7 @@ const PasswordField = ({
           className={`w-full pl-10 pr-12 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
             error ? "border-red-500" : "border-purple-500/30"
           }`}
-          placeholder="Create a strong password"
+          placeholder={placeholder || "Create a strong password"}
         />
         <button
           type="button"

@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,13 +11,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-import { cn } from "@/lib/utils";
-import { BookOpen, Home, LogOut, Menu, Moon, Sun, Users } from "lucide-react";
+import clsx from "clsx";
+import {
+  BookOpen,
+  GraduationCap,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  LucideChevronLeft,
+  Menu,
+  Settings,
+  Trophy,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useTheme } from "./ThemeContext";
 
 const navItems = [
   { icon: Home, label: "Overview", href: "/dashboard" },
@@ -23,22 +34,103 @@ const navItems = [
   { icon: BookOpen, label: "Leaderboard", href: "/dashboard/leaderboard" },
   { icon: Users, label: "Users", href: "/dashboard/users" },
 ];
+const navigationItems = [
+  {
+    id: "overview",
+    label: "Overview",
+    icon: LayoutDashboard,
+    color: "from-blue-500 to-cyan-500",
+    href: "/dashboard",
+  },
+  {
+    id: "quizzes",
+    label: "Quiz Management",
+    icon: BookOpen,
+    color: "from-green-500 to-emerald-500",
+    href: "/dashboard/quiz-sets",
+  },
+  {
+    id: "leaderboard",
+    label: "Leaderboard",
+    icon: Trophy,
+    color: "from-yellow-500 to-orange-500",
+    href: "/dashboard/leaderboard",
+  },
+  {
+    id: "users",
+    label: "Users",
+    icon: Users,
+    color: "from-purple-500 to-violet-500",
+    href: "/dashboard/users",
+  },
+];
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
 
-  const { theme, toggleTheme } = useTheme();
-
   const [isOpen, setIsOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const sidebarContent = (
     <div className="flex flex-col h-full">
       <div className="p-4">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-          Quiz Admin
-        </h1>
+        <div className="flex h-12  items-center space-x-3 mb-8">
+          <div className="p-2 bg-purple-600 rounded-xl">
+            <Settings className="h-6 w-6 text-white" />
+          </div>
+
+          {!sidebarCollapsed && (
+            <div className="duration-200 transition-opacity">
+              <h1 className="text-xl font-bold text-white truncate">
+                Admin Panel
+              </h1>
+              <p className="text-sm text-gray-400 truncate">
+                QuizMaster Dashboard
+              </p>
+            </div>
+          )}
+        </div>
+        <button
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          className="absolute hidden md:block -right-3 bg-purple-800/50 hover:text-white hover:scale-105    w-[25px] h-[25px ] flex items-center justify-center rounded-full  text-white/70 top-7 cursor-pointer"
+        >
+          <LucideChevronLeft className="p-0.5" />
+        </button>
       </div>
-      <nav className="flex-1">
+      <nav className="space-y-2 flex-1 px-3">
+        {navigationItems.map((item) => {
+          const IconComponent = item.icon;
+          const isActive = pathname === item.href;
+
+          return (
+            <Link href={item.href} key={item.id} className="block">
+              <motion.button
+                key={item.id}
+                // onClick={() => setCurrentPage(item.id)}
+                whileHover={{ scale: 1.02, x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full flex items-center h-12 space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                    : "text-gray-300 hover:bg-slate-700/50 hover:text-white"
+                }`}
+              >
+                <IconComponent className="h-5 w-5 flex-shrink-0" />
+                {!sidebarCollapsed && (
+                  <span className="font-medium truncate">{item.label}</span>
+                )}
+                {isActive && !sidebarCollapsed && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="ml-auto w-2 h-2 bg-white rounded-full"
+                  />
+                )}
+              </motion.button>
+            </Link>
+          );
+        })}
+      </nav>
+      {/* <nav className="flex-1">
         {navItems.map((item) => (
           <Link
             key={item.href}
@@ -56,52 +148,68 @@ export default function DashboardSidebar() {
             </span>
           </Link>
         ))}
-      </nav>
-      <div className="p-4 space-y-2">
-        <Button
-          variant="ghost"
-          className="w-full bg-gray-200 dark:bg-gray-900/40 text-gray-600 hover:text-gray-700 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-900/30"
-          onClick={toggleTheme}
-        >
-          Dark Mode
-          {theme === "dark" ? (
-            <Sun className="ml-2 h-4 w-4" />
-          ) : (
-            <Moon className="ml-2 h-4 w-4" />
-          )}
-        </Button>
-        <Button
-          variant="ghost"
-          className="w-full bg-red-100 dark:bg-red-900/40  text-red-600 hover:text-red-700 hover:bg-red-200 dark:text-red-400 dark:hover:bg-red-900/30"
-        >
-          <LogOut className="mr-2 h-4 w-4" /> Log out
-        </Button>
+      </nav> */}
+      <div className="p-4 ">
+        <div className=" border-t border-purple-500/20">
+          <div className="space-y-2 pt-2 ">
+            <Link href={"/"} className="block">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full flex items-center h-12 space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-700/50 rounded-xl transition-colors"
+              >
+                <Home className="h-5 w-5 flex-shrink-0" />
+                {!sidebarCollapsed && (
+                  <span className="truncate">Back to Site</span>
+                )}
+              </motion.button>
+            </Link>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full flex items-center h-12 space-x-3 px-4 py-3 text-red-300 hover:text-red-200 hover:bg-red-900/20 rounded-xl transition-colors"
+            >
+              <LogOut className="h-5 w-5 flex-shrink-0" />
+              {!sidebarCollapsed && <span className="truncate">Logout</span>}
+            </motion.button>
+          </div>
+        </div>
       </div>
     </div>
   );
 
   return (
     <>
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-md">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900/50 backdrop-blur-sm border-r border-purple-500/20  shadow-md">
         <div className="flex justify-between items-center p-4">
-          <h1 className="text-xl font-bold text-gray-800 dark:text-white">
-            QuizMaster
-          </h1>
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={toggleTheme}>
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
+          <Link href={"/"}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors group"
+            >
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+                className="p-2 bg-purple-900/50 rounded-lg group-hover:bg-purple-800/50 transition-colors"
+              >
+                <GraduationCap className="h-6 w-6" />
+              </motion.div>
+              <span className="text-xl font-bold text-white">QuizMaster</span>
+            </motion.button>
+          </Link>
+          <div className="flex items-center   space-x-2">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="bg-slate-800/50 text-white/70 hover:bg-slate-800/40 hover:text-white transition-colors "
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-64 p-0">
+              <SheetContent side="left" className="w-64  p-0">
                 <SheetHeader />
                 <SheetTitle />
                 <SheetDescription />
@@ -111,7 +219,12 @@ export default function DashboardSidebar() {
           </div>
         </div>
       </div>
-      <div className="hidden md:block w-64 bg-white dark:bg-gray-800 h-full">
+      <div
+        className={clsx(
+          "hidden md:block  bg-slate-800/50 backdrop-blur-sm border-r border-purple-500/20 transition-all duration-300 relative z-10 h-full",
+          sidebarCollapsed ? "w-[76px]" : "w-64"
+        )}
+      >
         {sidebarContent}
       </div>
     </>

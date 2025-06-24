@@ -10,6 +10,7 @@ const InputField = ({
   value,
   label,
   name,
+  placeholder,
 }: {
   icon: ReactNode;
   error: string;
@@ -17,6 +18,7 @@ const InputField = ({
   value: string;
   label: string;
   name: string;
+  placeholder: string;
   handleInputChange: (field: string, value: string) => void;
 }) => {
   return (
@@ -34,7 +36,8 @@ const InputField = ({
           className={`w-full pl-10 pr-4 py-3 bg-slate-700/50 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
             error ? "border-red-500" : "border-purple-500/30"
           }`}
-          placeholder="Enter your full name"
+          placeholder={placeholder}
+          name={name}
         />
       </div>
       {error && (

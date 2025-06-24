@@ -3,11 +3,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, GraduationCap, LogIn, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
 import FormHeader from "./form-header";
 import InputField from "./input-field";
 import PasswordField from "./password-field";
+import RoleTypeSelect from "./role-type-select";
 import SubmitButton from "./submit-button";
 
 export interface User {
@@ -25,6 +24,7 @@ const LoginForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [loginType, setLoginType] = useState<"user" | "admin">("user");
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -77,8 +77,10 @@ const LoginForm = () => {
         subTitle="Sign in to continue your learning journey"
       />
 
+      <RoleTypeSelect loginType={loginType} setLoginType={setLoginType} />
+
       {/* Form */}
-      <div className="pt-6">
+      <div className="">
         <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
             type="email"
@@ -90,6 +92,11 @@ const LoginForm = () => {
             }
             handleInputChange={handleInputChange}
             name={"email"}
+            placeholder={
+              loginType === "user"
+                ? "Enter your email address"
+                : "admin@gmail.com"
+            }
           />
 
           <PasswordField
@@ -99,18 +106,8 @@ const LoginForm = () => {
             error={errors.password}
             name="password"
             showStrengthIndicator={false}
+            placeholder="Enter your password"
           />
-
-          <div className="flex items-center gap-3">
-            <Checkbox
-              id="terms"
-              className="border-white/80 data-[state=checked]:border-purple-600 data-[state=checked]:bg-purple-600 data-[state=checked]:text-white dark:data-[state=checked]:border-purple-700 dark:data-[state=checked]:bg-purple-700
-                "
-            />
-            <Label htmlFor="terms" className="text-white/80">
-              Check this if you&apos;re logging in as an admin
-            </Label>
-          </div>
 
           {/* Forgot Password Link */}
           <div className="text-right">
@@ -127,8 +124,8 @@ const LoginForm = () => {
 
           {/* Submit Button */}
           <SubmitButton isLoading={isLoading}>
-            <LogIn className="h-5 w-5" />
-            <span>Sign In</span>
+            <LogIn className="h-5 w-5 capitalize" />
+            <span>Sign In as {loginType}</span>
             <ArrowRight className="h-4 w-4" />
           </SubmitButton>
         </form>

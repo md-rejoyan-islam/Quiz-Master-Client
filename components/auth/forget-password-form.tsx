@@ -155,6 +155,7 @@ const ForgetPasswordForm = () => {
                 value={email}
                 error={error}
                 handleInputChange={handleInputChange}
+                placeholder="Enter your email address"
               />
 
               {/* Submit Button */}
