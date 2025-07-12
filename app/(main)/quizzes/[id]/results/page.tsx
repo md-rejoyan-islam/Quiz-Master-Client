@@ -1,9 +1,10 @@
-import SectionSubtitle from "@/components/home/section-subtitle";
-import SectionTitle from "@/components/home/section-title";
-import CircularBar from "@/components/result/circular-progress-bar";
+import { getCookie } from "@/app/actions";
+import SectionSubtitle from "@/components/main/home/section-subtitle";
+import SectionTitle from "@/components/main/home/section-title";
+import CircularBar from "@/components/main/result/circular-progress-bar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { getQuizById } from "@/query/quizzes";
+import { getQuizById, showAttemptedQuizResults } from "@/query/quizzes";
 import clsx from "clsx";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -16,40 +17,13 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
 
-  const post = getQuizById(id);
+  const { data } = await getQuizById(id);
 
   return {
-    title: `Result | ${post?.title}` || "Quiz Not Found",
-    description: post?.description || "No description available",
+    title: data?.title ? `Result | ${data.title}` : "Quiz Not Found",
+    description: data?.description || "Quiz results not available",
   };
 }
-
-const quizData = {
-  id: 1,
-  title: "React Hooks Quiz",
-  description:
-    "A quiz on React hooks like useState, useEffect, and useContext.",
-  questions: [
-    {
-      id: 1,
-      text: "Which of the following is NOT a binary tree traversal method?",
-      options: ["Inorder", "Preorder", "Postorder", "Crossorder"],
-      correctAnswers: [3],
-    },
-    {
-      id: 2,
-      text: "What is the maximum number of nodes at level 'L' in a binary tree?",
-      options: ["2^L", "L", "2^(L-1)", "2L"],
-      correctAnswers: [0],
-    },
-    {
-      id: 3,
-      text: "What is the height of an empty binary tree?",
-      options: ["0", "-1", "1", "Undefined"],
-      correctAnswers: [1],
-    },
-  ],
-};
 
 export default async function ResultsPage({
   params,
@@ -58,31 +32,45 @@ export default async function ResultsPage({
 }) {
   const { id: quizId } = await params;
 
-  const userAnswers: { [key: number]: number[] } = {
-    1: [3],
-    2: [0],
-    3: [0],
-  };
+  const token = await getCookie("accessToken");
+  const { data, error } = await showAttemptedQuizResults(quizId, token);
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-transparent via-transparent to-slate-900 px-4 py-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <h1 className="text-3xl font-bold text-red-500">Error</h1>
+          <p className="text-lg text-gray-300 mt-4">{error}</p>
+          <Link
+            href={`/quizzes/${quizId}`}
+            className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+          >
+            Go Back to Quiz
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className=" bg-gradient-to-b from-transparent via-transparent to-slate-900 px-4 py-12">
       <div className="max-w-7xl mx-auto">
-        <SectionTitle secondLine={quizData.title} firstLine="" />
-        <SectionSubtitle title={quizData.description} />
+        <SectionTitle secondLine={data?.title} firstLine="" />
+        <SectionSubtitle title={data?.description || ""} />
 
         <div className="grid md:grid-cols-2 mt-4 grid-cols-1 items-center gap-8">
           <div className=" space-y-4 text-lg shadow-md p-6 rounded-xl h-full bg-gradient-to-r from-slate-900/60 to-slate-900/40 border border-slate-700/50  order-2 md:order-1">
             <div className="flex justify-between   text-white/80">
               <span>Questions:</span>
-              <span>10</span>
+              <span>{data?.questions.length}</span>
             </div>
             <div className="flex justify-between  text-white/80">
               <span>Correct:</span>
-              <span>{3}</span>
+              <span>{data?.correct}</span>
             </div>
             <div className="flex justify-between  text-white/80">
               <span>Wrong:</span>
-              <span>{2}</span>
+              <span>{data?.wrong}</span>
             </div>
 
             <div className="pt-3">
@@ -98,10 +86,25 @@ export default async function ResultsPage({
 
           <div className="order-1 md:order-2 grid grid-cols-2 gap-4 items-center shadow-md  p-6  rounded-md h-full bg-gradient-to-r from-slate-900/60 to-slate-900/40 border border-slate-700/50 text-white ">
             <div>
-              <h3 className="text-3xl font-bold">5/10</h3>
+              <h3 className="text-3xl font-bold">
+                {data?.correct}/{data?.questions.length}
+              </h3>
               <p>Your Mark</p>
             </div>
-            <CircularBar value={65} text={`65`} />
+            <CircularBar
+              value={
+                data?.correct
+                  ? Math.round((data?.correct / data?.questions.length) * 100)
+                  : 0
+              }
+              text={
+                data?.correct
+                  ? `${Math.round(
+                      (data?.correct / data?.questions.length) * 100
+                    )}`
+                  : "0"
+              }
+            />
           </div>
         </div>
 
@@ -111,13 +114,13 @@ export default async function ResultsPage({
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6 ">
-            {quizData.questions.map((question, index) => (
+            {data?.questions.map((question, index) => (
               <div
                 key={index}
                 className="bg-gradient-to-r from-slate-900/60 to-slate-900/40 border border-slate-700/50 text-white/80  shadow-sm  rounded-lg p-6"
               >
                 <h3 className="text-xl font-semibold mb-4">
-                  {index + 1}. {question.text}
+                  {index + 1}. {question.question}
                 </h3>
                 <div className="space-y-2">
                   {question.options.map((option, optionIndex) => (
@@ -125,9 +128,11 @@ export default async function ResultsPage({
                       <div
                         className={clsx(
                           "flex items-center px-1 py-1 rounded-md  space-x-2",
-                          question.correctAnswers.includes(optionIndex)
+                          question.answerIndices.includes(optionIndex)
                             ? "bg-green-500/30 text-green-400"
-                            : userAnswers[question.id]?.includes(optionIndex)
+                            : data?.submittedAnswers[question.id]?.includes(
+                                optionIndex
+                              )
                             ? "bg-red-500/30 text-red-400"
                             : "bg-slate-700/20"
                         )}
@@ -135,8 +140,9 @@ export default async function ResultsPage({
                         <Checkbox
                           id={`option-${index}`}
                           checked={
-                            userAnswers[question.id]?.includes(optionIndex) ||
-                            false
+                            data?.submittedAnswers[question.id]?.includes(
+                              optionIndex
+                            ) || false
                           }
                           className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-400 data-[state-checked]:border-none border-blue-600 dark:border-blue-400 data-[state=checked]:text-primary-foreground"
                         />

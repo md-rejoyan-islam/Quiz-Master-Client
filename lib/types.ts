@@ -3,6 +3,13 @@ export enum QUIZ_SET_LABEL {
   MEDIUM = "medium",
   HARD = "hard",
 }
+export enum EQuizSetLabel {
+  EASY = "easy",
+  MEDIUM = "medium",
+  HARD = "hard",
+}
+
+export type TCreateQuizStep = "basic" | "questions" | "review";
 
 export enum QUIZ_SET_STATUS {
   DRAFT = "draft",
@@ -25,25 +32,61 @@ export interface QUESTION {
   quizSetId: string;
   question: string;
   options: string[];
-  correctAnswers: string[] | number[];
+  answerIndices: number[];
   mark: number;
   time: number;
+  explanation?: string;
   createdAt: string;
   updatedAt: string;
   quiz?: QUIZ_SET;
 }
 
+export type ICreateQuestionFormData = Omit<
+  QUESTION,
+  "quizSetId" | "createdAt" | "updatedAt" | "quiz"
+>;
+
 export interface QUIZ_SET {
   id: string;
   title: string;
   description: string;
-  category: string[];
-  status: QUIZ_SET_STATUS;
-  label: QUIZ_SET_LABEL.EASY | QUIZ_SET_LABEL.MEDIUM | QUIZ_SET_LABEL.HARD;
+  tags: string[];
+  status: string;
+  label: string;
   userId: string;
   createdAt: string;
   updatedAt: string;
   questions: QUESTION[];
+  ratings?: QUIZ_SET_RATING[];
+  attempts: ATTEMPT[];
+  user?: USER;
+  isAttempted?: boolean;
+}
+export interface IQuizSet {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  status: string;
+  label: string;
+  createdAt: string;
+  updatedAt: string;
+  questions: QUESTION[];
+  ratings?: QUIZ_SET_RATING[];
+  attempts?: ATTEMPT[];
+  user?: USER;
+}
+
+export interface ICreateQuizSet {
+  id?: string;
+  title: string;
+  description: string;
+  tags: string[];
+  status: string;
+  category: string;
+  label: string;
+  createdAt: string;
+  questions: ICreateQuestionFormData[];
   ratings?: QUIZ_SET_RATING[];
   attempts?: ATTEMPT[];
   user?: USER;
@@ -75,6 +118,7 @@ export interface USER {
   email: string;
   bio: string | null;
   password: string;
+  status: "ACTIVE" | "INACTIVE";
   photo: string | null;
   role: USER_ROLE;
   quizSets?: QUIZ_SET[];

@@ -1,17 +1,27 @@
-"use client";
+import Hero from "@/components/main/home/hero";
+import HowItWorks from "@/components/main/home/how-it-work";
+import Quizzes from "@/components/main/home/quizzes";
+import Statistics from "@/components/main/home/statistics";
+import { getAllQuizzes } from "@/query/quizzes";
+import { loggedInUser } from "../actions";
 
-import Hero from "@/components/home/hero";
-import HowItWorks from "@/components/home/how-it-work";
-import Quizzes from "@/components/home/quizzes";
-import Statistics from "@/components/home/statistics";
+export const metadata = {
+  title: "Home | Quiz Master",
+  description: "A fun and interactive quiz platform for all knowledge levels",
+};
 
-export default function Home() {
+export default async function Home() {
+  const { user } = await loggedInUser();
+  const { error, data } = await getAllQuizzes(
+    "page=1&limit=10&status=published"
+  );
+
   return (
     <>
       <Hero />
       <HowItWorks />
       <Statistics />
-      <Quizzes />
+      <Quizzes quizzes={data} error={error} userId={user?.id || null} />
     </>
   );
 }

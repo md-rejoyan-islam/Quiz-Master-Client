@@ -2,7 +2,7 @@
 
 import DashboardPageHeader from "@/components/dashboard/header/dashboard-page-header";
 import { Checkbox } from "@/components/ui/checkbox";
-import { motion } from "framer-motion";
+import { easeIn, easeOut, motion } from "framer-motion";
 import {
   BookOpen,
   CheckCircle,
@@ -273,9 +273,13 @@ const QuizDetailPage = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: easeOut }, // use imported easeOut
     },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.3, ease: easeIn }, // use imported easeIn
+    }, // use imported easeIn
   };
 
   return (
@@ -663,7 +667,8 @@ const QuizDetailPage = () => {
               Edit Question
             </DialogTitle>
             <DialogDescription className="text-gray-400">
-              Make changes to your question here. Click save when you're done.
+              Make changes to your question here. Click save when you&apos;re
+              done.
             </DialogDescription>
           </DialogHeader>
           {questionToEdit && (

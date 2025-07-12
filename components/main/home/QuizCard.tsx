@@ -1,6 +1,6 @@
 "use client";
 
-import { Quiz, QuizLabel } from "@/lib/types";
+import { QUIZ_SET, QUIZ_SET_LABEL } from "@/lib/types";
 import { motion } from "framer-motion";
 import { Atom, Brain, Dna, Microscope } from "lucide-react";
 import Link from "next/link";
@@ -13,7 +13,7 @@ const icons = [
 ];
 
 type CardProps = Pick<
-  Quiz,
+  QUIZ_SET,
   "id" | "label" | "title" | "description" | "questions"
 >;
 
@@ -25,11 +25,11 @@ const QuizCard: React.FC<CardProps> = ({
   label,
 }) => {
   const difficultyColor = {
-    [QuizLabel.Easy]:
+    [QUIZ_SET_LABEL.EASY]:
       "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-    [QuizLabel.Medium]:
+    [QUIZ_SET_LABEL.MEDIUM]:
       "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-    [QuizLabel.Hard]:
+    [QUIZ_SET_LABEL.HARD]:
       "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
   };
 
@@ -50,7 +50,9 @@ const QuizCard: React.FC<CardProps> = ({
           <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
           <div className="flex justify-between items-center">
             <span
-              className={`px-2 py-1 rounded text-sm font-medium ${difficultyColor[label]}`}
+              className={`px-2 py-1 rounded text-sm font-medium ${
+                difficultyColor[label as keyof typeof difficultyColor]
+              }`}
             >
               {label}
             </span>

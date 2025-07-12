@@ -1,17 +1,20 @@
 import AuthBodyTemplate from "@/components/auth/auth-body-template";
 import LoginForm from "@/components/auth/login-form";
-import React from "react";
+import { Suspense } from "react";
+import Loading from "../loading";
 
 export const metadata = {
   title: "Login",
   description: "A fun and interactive quiz platform for all knowledge levels",
 };
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   return (
     <>
       <AuthBodyTemplate>
-        <LoginForm />
+        <Suspense fallback={<Loading />}>
+          <LoginForm />
+        </Suspense>
       </AuthBodyTemplate>
     </>
   );

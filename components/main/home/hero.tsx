@@ -1,8 +1,8 @@
 "use client";
+import AnimatedBackground from "@/components/animated-background";
 import { motion } from "framer-motion";
 import { Target, Trophy } from "lucide-react";
 import React from "react";
-import AnimatedBackground from "../animated-background";
 import BadgeBtn from "../button/badge-btn";
 import GradientAnimatedBtn from "../button/gradient-animated-btn";
 import DefaultFeatures from "./default-features";

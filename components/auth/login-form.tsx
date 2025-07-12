@@ -1,8 +1,11 @@
 "use client";
+import { login } from "@/app/actions";
 import { motion } from "framer-motion";
 import { ArrowRight, GraduationCap, LogIn, Mail } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import FormHeader from "./form-header";
 import InputField from "./input-field";
 import PasswordField from "./password-field";
@@ -49,6 +52,9 @@ const LoginForm = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -56,17 +62,23 @@ const LoginForm = () => {
 
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      //   const user: User = {
-      //     id: "1",
-      //     email: formData.email,
-      //     name: formData.email.split("@")[0],
-      //     avatar: undefined,
-      //   };
-      // onLogin(user);
-      setIsLoading(false);
-    }, 1500);
+    const { success, error } = await login({
+      email: formData.email,
+      password: formData.password,
+      role: loginType,
+    });
+
+    if (!success) {
+      toast.error(error || "Login failed. Please try again.");
+    } else {
+      const from = searchParams.get("from");
+      console.log(from);
+
+      const isAdmin = loginType === "admin";
+      const redirectUrl = isAdmin ? "/dashboard" : "/leaderboard";
+      router.push(from || redirectUrl);
+    }
+    setIsLoading(false);
   };
   return (
     <>

@@ -1,4 +1,4 @@
-import ProfileForm from "@/components/profile/profile-form";
+import ProfileForm from "@/components/main/profile/profile-form";
 
 export const metadata = {
   title: "Profile",

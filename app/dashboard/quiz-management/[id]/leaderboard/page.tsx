@@ -142,7 +142,7 @@ const QuizLeaderboardPage = () => {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>(
     []
   );
-  const [quizTitle, setQuizTitle] = useState<string>(mockQuizDetails.title); // Get quiz title from mock data
+  const [quizTitle] = useState<string>(mockQuizDetails.title); // Get quiz title from mock data
   const [sortBy, setSortBy] = useState<"score" | "time">("score"); // 'score' or 'time'
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc"); // 'desc' or 'asc'
 
@@ -158,7 +158,7 @@ const QuizLeaderboardPage = () => {
 
   // Memoize sorted data to prevent re-sorting on every render
   const sortedLeaderboard = useMemo(() => {
-    let sorted = [...leaderboardData];
+    const sorted = [...leaderboardData];
     if (sortBy === "score") {
       sorted.sort((a, b) =>
         sortOrder === "desc" ? b.score - a.score : a.score - b.score
@@ -193,9 +193,13 @@ const QuizLeaderboardPage = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" as const },
     },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.3, ease: "easeIn" as const },
+    },
   };
 
   return (

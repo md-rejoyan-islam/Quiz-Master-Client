@@ -1,4 +1,5 @@
 "use client";
+import AnimatedBackground from "@/components/animated-background";
 import { motion } from "framer-motion";
 import {
   Award,
@@ -11,67 +12,65 @@ import {
   Users,
 } from "lucide-react";
 import React from "react";
-import AnimatedBackground from "../animated-background";
 import BadgeBtn from "../button/badge-btn";
 import GradientAnimatedBtn from "../button/gradient-animated-btn";
 import SectionSubtitle from "./section-subtitle";
 import SectionTitle from "./section-title";
+const stats = [
+  {
+    id: 1,
+    number: "50,000+",
+    label: "Active Students",
+    description: "Learning and growing every day",
+    icon: Users,
+    color: "from-blue-500 to-cyan-500",
+    bgColor: "from-blue-900/20 to-cyan-900/20",
+    growth: "+15% this month",
+  },
+  {
+    id: 2,
+    number: "1,200+",
+    label: "Quiz Categories",
+    description: "Across multiple subjects",
+    icon: BookOpen,
+    color: "from-green-500 to-emerald-500",
+    bgColor: "from-green-900/20 to-emerald-900/20",
+    growth: "+50 new this week",
+  },
+  {
+    id: 3,
+    number: "2.5M+",
+    label: "Quizzes Completed",
+    description: "Knowledge tests taken",
+    icon: Trophy,
+    color: "from-purple-500 to-violet-500",
+    bgColor: "from-purple-900/20 to-violet-900/20",
+    growth: "+25K daily",
+  },
+  {
+    id: 4,
+    number: "94%",
+    label: "Success Rate",
+    description: "Students improve their scores",
+    icon: TrendingUp,
+    color: "from-orange-500 to-red-500",
+    bgColor: "from-orange-900/20 to-red-900/20",
+    growth: "Consistently high",
+  },
+];
+
+const achievements = [
+  { icon: Globe, text: "Available in 25+ countries", color: "text-blue-400" },
+  { icon: Star, text: "4.9/5 average rating", color: "text-yellow-400" },
+  { icon: Clock, text: "24/7 learning support", color: "text-green-400" },
+  {
+    icon: Award,
+    text: "Certified by education boards",
+    color: "text-purple-400",
+  },
+];
 
 const Statistics: React.FC = () => {
-  const stats = [
-    {
-      id: 1,
-      number: "50,000+",
-      label: "Active Students",
-      description: "Learning and growing every day",
-      icon: Users,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "from-blue-900/20 to-cyan-900/20",
-      growth: "+15% this month",
-    },
-    {
-      id: 2,
-      number: "1,200+",
-      label: "Quiz Categories",
-      description: "Across multiple subjects",
-      icon: BookOpen,
-      color: "from-green-500 to-emerald-500",
-      bgColor: "from-green-900/20 to-emerald-900/20",
-      growth: "+50 new this week",
-    },
-    {
-      id: 3,
-      number: "2.5M+",
-      label: "Quizzes Completed",
-      description: "Knowledge tests taken",
-      icon: Trophy,
-      color: "from-purple-500 to-violet-500",
-      bgColor: "from-purple-900/20 to-violet-900/20",
-      growth: "+25K daily",
-    },
-    {
-      id: 4,
-      number: "94%",
-      label: "Success Rate",
-      description: "Students improve their scores",
-      icon: TrendingUp,
-      color: "from-orange-500 to-red-500",
-      bgColor: "from-orange-900/20 to-red-900/20",
-      growth: "Consistently high",
-    },
-  ];
-
-  const achievements = [
-    { icon: Globe, text: "Available in 25+ countries", color: "text-blue-400" },
-    { icon: Star, text: "4.9/5 average rating", color: "text-yellow-400" },
-    { icon: Clock, text: "24/7 learning support", color: "text-green-400" },
-    {
-      icon: Award,
-      text: "Certified by education boards",
-      color: "text-purple-400",
-    },
-  ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -89,7 +88,7 @@ const Statistics: React.FC = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
       },
     },

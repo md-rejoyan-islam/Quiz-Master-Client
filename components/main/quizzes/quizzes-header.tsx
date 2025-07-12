@@ -1,7 +1,7 @@
 "use client";
-import BadgeBtn from "@/components/button/badge-btn";
-import SectionSubtitle from "@/components/home/section-subtitle";
-import SectionTitle from "@/components/home/section-title";
+import BadgeBtn from "@/components/main/button/badge-btn";
+import SectionSubtitle from "@/components/main/home/section-subtitle";
+import SectionTitle from "@/components/main/home/section-title";
 import { motion } from "framer-motion";
 import { BookOpen } from "lucide-react";
 const QuizzesHeader = () => {

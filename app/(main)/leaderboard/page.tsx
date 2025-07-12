@@ -1,6 +1,6 @@
 "use client";
 
-import SectionTitle from "@/components/home/section-title";
+import SectionTitle from "@/components/main/home/section-title";
 import { motion } from "framer-motion";
 import {
   Award,

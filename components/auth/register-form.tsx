@@ -1,8 +1,11 @@
 "use client";
+import { register } from "@/app/actions";
 import { motion } from "framer-motion";
 import { ArrowRight, GraduationCap, LogIn, Mail, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import FormHeader from "./form-header";
 import InputField from "./input-field";
 import PasswordField from "./password-field";
@@ -56,12 +59,29 @@ const RegisterForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setIsLoading(true);
+
+    const { success, error } = await register({
+      fullName: formData.name,
+      email: formData.email,
+      password: formData.password,
+      role: loginType,
+    });
+    console.log("Registration response:", { success, error });
+
+    if (!success) {
+      toast.error(error || "Registration failed. Please try again.");
+    } else {
+      router.push("/login");
+      toast.success("Registration successful! Please log in.");
+    }
+    setIsLoading(false);
 
     // Simulate API call
     setTimeout(() => {

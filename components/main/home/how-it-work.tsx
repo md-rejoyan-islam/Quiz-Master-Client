@@ -1,3 +1,5 @@
+"use client";
+import AnimatedBackgroundPattern from "@/components/animated-background-pattern";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,76 +12,75 @@ import {
   Trophy,
 } from "lucide-react";
 import React from "react";
-import AnimatedBackgroundPattern from "../animated-background-pattern";
 import BadgeBtn from "../button/badge-btn";
 import GradientAnimatedBtn from "../button/gradient-animated-btn";
 import SectionSubtitle from "./section-subtitle";
 import SectionTitle from "./section-title";
 
-const HowItWorks: React.FC = () => {
-  const steps = [
-    {
-      id: 1,
-      title: "Choose Your Subject",
-      description:
-        "Browse through our extensive collection of quiz categories and select the topic you want to master.",
-      icon: BookOpen,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "from-blue-900/20 to-cyan-900/20",
-      borderColor: "border-blue-500/30",
-      details: [
-        "Multiple categories available",
-        "Difficulty levels for all skill sets",
-        "Updated content regularly",
-      ],
-    },
-    {
-      id: 2,
-      title: "Start the Challenge",
-      description:
-        "Click start and dive into carefully crafted questions designed to test and improve your knowledge.",
-      icon: Play,
-      color: "from-green-500 to-emerald-500",
-      bgColor: "from-green-900/20 to-emerald-900/20",
-      borderColor: "border-green-500/30",
-      details: [
-        "Timed quiz sessions",
-        "Interactive question format",
-        "Progress tracking in real-time",
-      ],
-    },
-    {
-      id: 3,
-      title: "Track Your Progress",
-      description:
-        "Monitor your performance with detailed analytics and see how you improve over time.",
-      icon: BarChart3,
-      color: "from-purple-500 to-violet-500",
-      bgColor: "from-purple-900/20 to-violet-900/20",
-      borderColor: "border-purple-500/30",
-      details: [
-        "Detailed score breakdown",
-        "Performance analytics",
-        "Identify improvement areas",
-      ],
-    },
-    {
-      id: 4,
-      title: "Achieve Excellence",
-      description:
-        "Celebrate your achievements and continue learning with personalized recommendations.",
-      icon: Trophy,
-      color: "from-yellow-500 to-orange-500",
-      bgColor: "from-yellow-900/20 to-orange-900/20",
-      borderColor: "border-yellow-500/30",
-      details: [
-        "Achievement badges",
-        "Personalized learning path",
-        "Continuous improvement",
-      ],
-    },
-  ];
+const steps = [
+  {
+    id: 1,
+    title: "Choose Your Subject",
+    description:
+      "Browse through our extensive collection of quiz categories and select the topic you want to master.",
+    icon: BookOpen,
+    color: "from-blue-500 to-cyan-500",
+    bgColor: "from-blue-900/20 to-cyan-900/20",
+    borderColor: "border-blue-500/30",
+    details: [
+      "Multiple categories available",
+      "Difficulty levels for all skill sets",
+      "Updated content regularly",
+    ],
+  },
+  {
+    id: 2,
+    title: "Start the Challenge",
+    description:
+      "Click start and dive into carefully crafted questions designed to test and improve your knowledge.",
+    icon: Play,
+    color: "from-green-500 to-emerald-500",
+    bgColor: "from-green-900/20 to-emerald-900/20",
+    borderColor: "border-green-500/30",
+    details: [
+      "Timed quiz sessions",
+      "Interactive question format",
+      "Progress tracking in real-time",
+    ],
+  },
+  {
+    id: 3,
+    title: "Track Your Progress",
+    description:
+      "Monitor your performance with detailed analytics and see how you improve over time.",
+    icon: BarChart3,
+    color: "from-purple-500 to-violet-500",
+    bgColor: "from-purple-900/20 to-violet-900/20",
+    borderColor: "border-purple-500/30",
+    details: [
+      "Detailed score breakdown",
+      "Performance analytics",
+      "Identify improvement areas",
+    ],
+  },
+  {
+    id: 4,
+    title: "Achieve Excellence",
+    description:
+      "Celebrate your achievements and continue learning with personalized recommendations.",
+    icon: Trophy,
+    color: "from-yellow-500 to-orange-500",
+    bgColor: "from-yellow-900/20 to-orange-900/20",
+    borderColor: "border-yellow-500/30",
+    details: [
+      "Achievement badges",
+      "Personalized learning path",
+      "Continuous improvement",
+    ],
+  },
+];
 
+const HowItWorks: React.FC = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -97,7 +98,7 @@ const HowItWorks: React.FC = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
       },
     },

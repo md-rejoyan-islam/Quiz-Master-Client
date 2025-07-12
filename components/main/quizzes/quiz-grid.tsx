@@ -1,6 +1,6 @@
 import { QUIZ_SET } from "@/lib/types";
 import { motion } from "framer-motion";
-import { Award, Brain, Clock, Star, TrendingUp, Users } from "lucide-react";
+import { Award, Brain, Clock, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 const difficultyColors = {
   easy: "bg-green-900/50 text-green-300 border-green-500/30",
@@ -26,7 +26,7 @@ const QuizGrid = ({ quizzes }: { quizzes: QUIZ_SET[] }) => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
       },
     },
@@ -40,7 +40,14 @@ const QuizGrid = ({ quizzes }: { quizzes: QUIZ_SET[] }) => {
     >
       {quizzes.map((quiz: QUIZ_SET) => {
         return (
-          <Link key={quiz.id} href={`/quizzes/${quiz.id}`}>
+          <Link
+            key={quiz.id}
+            href={
+              quiz.isAttempted
+                ? `/quizzes/${quiz.id}/results`
+                : `/quizzes/${quiz.id}`
+            }
+          >
             <motion.div
               variants={itemVariants}
               whileHover={{
@@ -84,18 +91,18 @@ const QuizGrid = ({ quizzes }: { quizzes: QUIZ_SET[] }) => {
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium border ${
                         difficultyColors[
-                          quiz.label as keyof typeof difficultyColors
+                          quiz.label.toLowerCase() as keyof typeof difficultyColors
                         ]
                       }`}
                     >
                       {quiz.label}
                     </span>
-                    {
+                    {/* {
                       <div className="flex items-center space-x-1">
                         <Star className="h-4 w-4 text-yellow-400 fill-current" />
                         <span className="text-sm text-gray-300">4.7</span>
                       </div>
-                    }
+                    } */}
                   </div>
                 </div>
 
@@ -133,9 +140,9 @@ const QuizGrid = ({ quizzes }: { quizzes: QUIZ_SET[] }) => {
                 </div>
 
                 {/* Tags */}
-                {quiz.category && quiz.category.length > 0 && (
+                {quiz.tags && quiz.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {quiz.category.slice(0, 3).map((tag, index) => (
+                    {quiz.tags.slice(0, 3).map((tag, index) => (
                       <span
                         key={index}
                         className="px-2 py-1 bg-slate-700/50 text-xs text-gray-300 rounded-full"
@@ -146,14 +153,24 @@ const QuizGrid = ({ quizzes }: { quizzes: QUIZ_SET[] }) => {
                   </div>
                 )}
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group-hover:shadow-lg flex items-center justify-center space-x-2"
-                >
-                  <span>Start Quiz</span>
-                  <Award className="h-4 w-4" />
-                </motion.button>
+                {!quiz?.isAttempted ? (
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group-hover:shadow-lg flex items-center justify-center space-x-2"
+                  >
+                    <span>Start Quiz</span>
+                    <Award className="h-4 w-4" />
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group-hover:shadow-lg flex items-center justify-center space-x-2"
+                  >
+                    <span>View Result</span>
+                  </motion.button>
+                )}
               </div>
             </motion.div>
           </Link>
