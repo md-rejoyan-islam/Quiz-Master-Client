@@ -1,5 +1,7 @@
 import { USER } from "@/lib/types";
 
+const api_url = process.env.NEXT_PUBLIC_API_URL!;
+
 export const getAllUsers = async (
   query: string = "page=1&limit=10",
   token: string | null = null
@@ -17,19 +19,16 @@ export const getAllUsers = async (
   } | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users?${query}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        next: {
-          tags: ["users"],
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users?${query}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      next: {
+        tags: ["users"],
+      },
+    });
 
     const result = await response.json();
 
@@ -72,16 +71,13 @@ export const getAllUserAttemptById = async (
     | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}/attempts`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}/attempts`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
 
     const result = await response.json();
 
@@ -92,6 +88,7 @@ export const getAllUserAttemptById = async (
     return {
       status: true,
       error: null,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data: result.data.map((dt: any) => ({
         quizName: dt.quizSet.title,
         correctAnswers: dt.correct,
@@ -127,17 +124,14 @@ export const updateUserProfile = async (
   } | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(profileData),
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(profileData),
+    });
 
     const result = await response.json();
 
@@ -170,16 +164,13 @@ export const deleteUser = async (
   error: string | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -201,19 +192,16 @@ export const banUser = async (
   error: string | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}/ban`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        next: {
-          tags: ["users", "user"],
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}/ban`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      next: {
+        tags: ["users", "user"],
+      },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -234,19 +222,16 @@ export const unbanUser = async (
   error: string | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}/unban`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        next: {
-          tags: ["users", "user"],
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}/unban`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      next: {
+        tags: ["users", "user"],
+      },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -268,19 +253,16 @@ export const getUserById = async (
   data: USER | null;
 }> => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/v1/users/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        next: {
-          tags: ["user"],
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/api/v1/users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      next: {
+        tags: ["user"],
+      },
+    });
 
     const result = await response.json();
 
