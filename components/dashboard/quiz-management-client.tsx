@@ -1,15 +1,14 @@
 "use client";
 
 import { QUIZ_SET } from "@/lib/types";
+import { deleteQuizSet } from "@/query/quizzes";
 import { motion } from "framer-motion";
 import {
   AlertCircle,
   BookOpen,
   CheckCircle,
   Clock,
-  Copy,
   Edit,
-  Eye,
   MoreVertical,
   Plus,
   Search,
@@ -20,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export interface Quiz {
   id: string;
@@ -84,8 +84,10 @@ const itemVariants = {
 
 export default function QuizManagementClient({
   data,
+  token,
 }: {
   data: QUIZ_SET[] | null;
+  token?: string;
 }) {
   const [quizzes, setQuizzes] = useState<QUIZ_SET[]>(data || []);
   const [searchTerm, setSearchTerm] = useState("");
@@ -93,10 +95,11 @@ export default function QuizManagementClient({
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [, setShowCreateModal] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  console.log(data);
 
-  const tags = [
+  const categories = [
     "All",
-    ...Array.from(new Set(quizzes.map((quiz) => quiz.tags).flat())),
+    ...Array.from(new Set(quizzes.map((quiz) => quiz.category))),
   ];
   const statuses = ["All", "Published", "Draft"];
 
@@ -105,7 +108,8 @@ export default function QuizManagementClient({
       quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       quiz.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory =
-      selectedCategory === "All" || quiz.tags?.includes(selectedCategory);
+      selectedCategory === "All" ||
+      quiz.category?.toLowerCase() === selectedCategory.toLowerCase();
     const matchesStatus =
       selectedStatus === "All" ||
       (selectedStatus === "Published" && quiz.status === "PUBLISHED") ||
@@ -119,18 +123,14 @@ export default function QuizManagementClient({
   //   setShowCreateModal(false);
   // };
 
-  const handleDeleteQuiz = (quizId: string) => {
+  const handleDeleteQuiz = async (quizId: string) => {
+    const response = await deleteQuizSet(quizId, token);
+    if (!response.status) {
+      toast.error(`Error: ${response.error}`);
+      return;
+    }
     setQuizzes(quizzes.filter((quiz) => quiz.id !== quizId));
-  };
-
-  const handleDuplicateQuiz = (quiz: QUIZ_SET) => {
-    const duplicatedQuiz = {
-      ...quiz,
-      id: Date.now().toString(),
-      title: `${quiz.title} (Copy)`,
-      createdAt: new Date().toISOString(),
-    };
-    setQuizzes([...quizzes, duplicatedQuiz]);
+    toast.success("Quiz deleted successfully!");
   };
 
   const getStatusColor = (quiz: QUIZ_SET) => {
@@ -277,7 +277,7 @@ export default function QuizManagementClient({
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-4 py-3 bg-slate-700/50 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             >
-              {tags.map((tag, index) => (
+              {categories.map((tag, index) => (
                 <option key={index} value={tag}>
                   {tag}
                 </option>
@@ -436,21 +436,7 @@ export default function QuizManagementClient({
                     <Edit className="h-4 w-4" />
                     <span>Edit</span>
                   </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleDuplicateQuiz(quiz)}
-                    className="p-2 bg-slate-700 hover:bg-slate-600 text-gray-400 hover:text-white rounded-lg transition-colors"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 bg-slate-700 hover:bg-slate-600 text-gray-400 hover:text-white rounded-lg transition-colors"
-                  >
-                    <Eye className="h-4 w-4" />
-                  </motion.button>
+
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -502,19 +488,7 @@ export default function QuizManagementClient({
                   >
                     <Edit className="h-4 w-4" />
                   </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => handleDuplicateQuiz(quiz)}
-                    className="p-2 bg-slate-700 hover:bg-slate-600 text-gray-400 hover:text-white rounded-lg transition-colors"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    className="p-2 bg-slate-700 hover:bg-slate-600 text-gray-400 hover:text-white rounded-lg transition-colors"
-                  >
-                    <Eye className="h-4 w-4" />
-                  </motion.button>
+
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     onClick={() => handleDeleteQuiz(quiz.id)}

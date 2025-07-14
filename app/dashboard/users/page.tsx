@@ -6,7 +6,7 @@ import { getAllUsers } from "@/query/users";
 const DashboardUserPage = async () => {
   const token = await getCookie("accessToken");
 
-  const { data } = await getAllUsers(`limit=1000`, token);
+  const { data } = await getAllUsers(`limit=100`, token);
 
   return (
     <>
@@ -14,7 +14,7 @@ const DashboardUserPage = async () => {
         label="User Management"
         description="Manage user accounts"
       />
-      <DashboardUserClient data={data} />
+      <DashboardUserClient data={data} token={token} />
     </>
   );
 };

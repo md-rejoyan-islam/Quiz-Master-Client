@@ -172,6 +172,11 @@ const NavLinks: React.FC<{
                   <li className="text-white cursor-pointer hover:bg-black/30 md:px-3 md:py-2 transition-colors">
                     <Link href="/profile">Profile</Link>
                   </li>
+                  {user?.role?.toLocaleLowerCase() === "admin" && (
+                    <li className="text-white cursor-pointer hover:bg-black/30 md:px-3 md:py-2 transition-colors">
+                      <Link href="/dashboard">Dashboard</Link>
+                    </li>
+                  )}
 
                   <li
                     className="text-gray-300 border-t border-blue-700/20 cursor-pointer md:px-3  hover:bg-black/30 md:py-2  hover:text-purple-400 transition-colors"

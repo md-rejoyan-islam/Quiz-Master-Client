@@ -19,7 +19,7 @@ const QuizManagement = async () => {
         description="Create and manage quiz content"
       />
       <div className="px-8 py-6 space-y-4">
-        <QuizManagementClient data={data} />
+        <QuizManagementClient data={data} token={token} />
       </div>
     </>
   );

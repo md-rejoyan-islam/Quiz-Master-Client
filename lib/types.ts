@@ -52,6 +52,7 @@ export interface QUIZ_SET {
   description: string;
   tags: string[];
   status: string;
+  category: string;
   label: string;
   userId: string;
   createdAt: string;
@@ -78,7 +79,7 @@ export interface IQuizSet {
 }
 
 export interface ICreateQuizSet {
-  id?: string;
+  id?: string | null;
   title: string;
   description: string;
   tags: string[];
@@ -87,6 +88,22 @@ export interface ICreateQuizSet {
   label: string;
   createdAt: string;
   questions: ICreateQuestionFormData[];
+  ratings?: QUIZ_SET_RATING[];
+  attempts?: ATTEMPT[];
+  user?: USER;
+}
+export interface ICreateQuizSetWithOutId {
+  title: string;
+  description: string;
+  tags: string[];
+  status: string;
+  category: string;
+  label: string;
+  createdAt: string;
+  questions: Omit<
+    QUESTION,
+    "quizSetId" | "createdAt" | "updatedAt" | "quiz" | "id"
+  >[];
   ratings?: QUIZ_SET_RATING[];
   attempts?: ATTEMPT[];
   user?: USER;

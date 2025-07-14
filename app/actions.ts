@@ -276,3 +276,11 @@ export const getCookie = async (name: string): Promise<string | undefined> => {
   const cookieStore = await cookies();
   return cookieStore.get(name)?.value;
 };
+
+import { revalidateTag } from "next/cache";
+
+export default async function action() {
+  revalidateTag("quizzes");
+  revalidateTag("users");
+  revalidateTag("user");
+}

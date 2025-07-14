@@ -1,4 +1,4 @@
-import { QUESTION, QUIZ_SET } from "@/lib/types";
+import { ICreateQuizSetWithOutId, QUESTION, QUIZ_SET } from "@/lib/types";
 import { errorResponse, successResponse } from "@/lib/utils";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL!;
@@ -98,37 +98,6 @@ export const getAllAdminQuizzesByUserId = async (
 
     if (!response.ok) {
       throw new Error(result.message || "Failed to fetch admin quizzes");
-    }
-
-    return successResponse(result.data);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return errorResponse(message);
-  }
-};
-
-export const createQuizSet = async (
-  quizSet: QUIZ_SET,
-  token?: string
-): Promise<{
-  status: boolean;
-  error: string | null;
-  data: QUIZ_SET | null;
-}> => {
-  try {
-    const response = await fetch(`${api_url}/api/v1/quiz-sets`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify(quizSet),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || "Failed to create quiz set");
     }
 
     return successResponse(result.data);
@@ -325,6 +294,104 @@ export const leaderBoard = async (
 
     if (!response.ok) {
       throw new Error(result.message || "Failed to fetch leaderboard");
+    }
+
+    return successResponse(result.data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return errorResponse(message);
+  }
+};
+
+export const deleteQuizSet = async (
+  quizId: string,
+  token?: string
+): Promise<{
+  status: boolean;
+  error: string | null;
+}> => {
+  try {
+    const response = await fetch(`${api_url}/api/v1/quiz-sets/${quizId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.message || "Failed to delete quiz set");
+    }
+
+    return successResponse(null);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return errorResponse(message);
+  }
+};
+
+export const createQuizSetWithQuestions = async (
+  quizSet: ICreateQuizSetWithOutId,
+  token?: string
+): Promise<{
+  status: boolean;
+  error: string | null;
+  data: QUIZ_SET | null;
+}> => {
+  try {
+    console.log(quizSet);
+
+    const response = await fetch(
+      `${api_url}/api/v1/quiz-sets/create-with-questions`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(quizSet),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || "Failed to create quiz set with questions"
+      );
+    }
+
+    return successResponse(result.data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return errorResponse(message);
+  }
+};
+
+export const createQuizSet = async (
+  quizSet: QUIZ_SET,
+  token?: string
+): Promise<{
+  status: boolean;
+  error: string | null;
+  data: QUIZ_SET | null;
+}> => {
+  try {
+    const response = await fetch(`${api_url}/api/v1/quiz-sets`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(quizSet),
+    });
+
+    const result = await response.json();
+    console.log(result);
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to create quiz set");
     }
 
     return successResponse(result.data);

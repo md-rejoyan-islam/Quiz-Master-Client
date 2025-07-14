@@ -6,9 +6,11 @@ import { useState } from "react";
 // Import Shadcn UI Dialog components
 import {
   ICreateQuestionFormData,
-  ICreateQuizSet,
+  ICreateQuizSetWithOutId,
   TCreateQuizStep,
 } from "@/lib/types";
+import { createQuizSetWithQuestions } from "@/query/quizzes";
+import { toast } from "react-toastify";
 import BasicForm from "./basic-form";
 import CreateQuizFooter from "./create-quiz-footer";
 import CreateStep from "./create-step";
@@ -16,7 +18,7 @@ import EditQuestionDialog from "./edit-question-dialog";
 import ProgressSteps from "./progress-steps";
 import QuestionForm from "./question-form";
 
-const CreateQuizClient = () => {
+const CreateQuizClient = ({ token }: { token?: string }) => {
   const [currentStep, setCurrentStep] = useState<TCreateQuizStep>("basic");
   const [quizData, setQuizData] = useState({
     title: "",
@@ -37,24 +39,43 @@ const CreateQuizClient = () => {
   };
 
   // Function to handle saving quiz as draft or published
-  const handleSaveQuiz = (isPublished: boolean) => {
-    const newQuiz: ICreateQuizSet = {
+  const handleSaveQuiz = async (isPublished: boolean) => {
+    const newQuiz: ICreateQuizSetWithOutId = {
       title: quizData.title,
       description: quizData.description,
       category: quizData.category,
       label: quizData.label,
       tags: quizData.tags,
-      questions: questions,
+      // remove  the id from questions
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      questions: questions.map(({ id, ...rest }) => ({
+        ...rest,
+      })),
+
       createdAt: new Date().toISOString(),
       status: isPublished ? "published" : "draft",
     };
+    const response = await createQuizSetWithQuestions(newQuiz, token);
 
-    // Replace with actual API call or prop function: onSave(newQuiz);
-    console.log("Saving Quiz:", newQuiz); // For demonstration purposes
-    alert(
-      `Quiz saved as ${isPublished ? "Published" : "Draft"}! Check console.`
+    if (!response.status) {
+      toast.error(`Error: ${response.error}`);
+      console.log(response);
+
+      return;
+    }
+    setCurrentStep("basic");
+    setQuizData({
+      title: "",
+      description: "",
+      category: "",
+      label: "Easy",
+      tags: [],
+    });
+    setQuestions([]);
+    setIsEditDialogOpen(false);
+    toast.success(
+      `Quiz ${isPublished ? "published" : "saved as draft"} successfully!`
     );
-    // Optionally close modal or redirect after saving
   };
 
   const nextStep = () => {

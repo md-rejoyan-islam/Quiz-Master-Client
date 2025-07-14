@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 import { USER } from "@/lib/types";
+import { banUser, deleteUser, unbanUser } from "@/query/users";
 import {
   Ban,
   BookOpen,
@@ -22,6 +23,7 @@ import {
   UserX,
   XCircle,
 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export interface User {
   id: string;
@@ -38,6 +40,7 @@ export interface User {
 
 export default function DashboardUserClient({
   data,
+  token,
 }: {
   data: {
     pagination: {
@@ -48,6 +51,7 @@ export default function DashboardUserClient({
     };
     users: USER[];
   } | null;
+  token?: string | null;
 }) {
   const stats = [
     {
@@ -121,23 +125,41 @@ export default function DashboardUserClient({
     return matchesSearch && matchesStatus && matchesRole;
   });
 
-  const handleBanUser = (userId: string) => {
+  const handleBanUser = async (userId: string) => {
+    const response = await banUser(userId, token);
+
+    if (!response.status) {
+      return toast.error(response.error || "Failed to ban user");
+    }
+    toast.success("User banned successfully");
     setUsers(
       users.map((user) =>
-        user.id === userId ? { ...user, isActive: false } : user
+        user.id === userId ? { ...user, status: "INACTIVE" } : user
       )
     );
   };
 
-  const handleUnbanUser = (userId: string) => {
+  const handleUnbanUser = async (userId: string) => {
+    const response = await unbanUser(userId, token);
+    if (!response.status) {
+      return toast.error(response.error || "Failed to unban user");
+    }
+    toast.success("User unbanned successfully");
+
     setUsers(
       users.map((user) =>
-        user.id === userId ? { ...user, isActive: true } : user
+        user.id === userId ? { ...user, status: "ACTIVE" } : user
       )
     );
   };
 
-  const handleDeleteUser = (userId: string) => {
+  const handleDeleteUser = async (userId: string) => {
+    const response = await deleteUser(userId, token);
+    if (!response.status) {
+      return toast.error(response.error || "Failed to delete user");
+    }
+    toast.success("User deleted successfully");
+
     setUsers(users.filter((user) => user.id !== userId));
   };
 
