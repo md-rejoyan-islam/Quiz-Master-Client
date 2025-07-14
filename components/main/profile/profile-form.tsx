@@ -1,34 +1,39 @@
 "use client";
+import { updateUserProfile } from "@/query/users";
 import { motion } from "framer-motion";
 import { Camera, Save } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface UserProfile {
   name: string;
   email: string;
-  bio: string;
+  bio: string | null;
   password: string;
   confirmPassword: string;
-  preferences: {
-    notifications: boolean;
-    publicProfile: boolean;
-  };
 }
 
-const initialProfile: UserProfile = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  bio: "I love taking quizzes and learning new things!",
-  password: "",
-  confirmPassword: "",
-  preferences: {
-    notifications: true,
-    publicProfile: false,
-  },
-};
+const ProfileForm = ({
+  user,
+  token,
+}: {
+  user: {
+    fullName: string;
+    email: string;
+    bio: string | null;
+    id: string;
+  } | null;
+  token?: string;
+}) => {
+  const initialProfile: UserProfile = {
+    name: user?.fullName || "",
+    email: user?.email || "",
+    bio: user?.bio || "",
+    password: "",
+    confirmPassword: "",
+  };
 
-const ProfileForm = () => {
   const [profile, setProfile] = useState<UserProfile>(initialProfile);
   const [imagePreview, setImagePreview] = useState<string | null>("/user.png");
 
@@ -50,12 +55,29 @@ const ProfileForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the profile data to your backend
-    console.log("Profile updated:", profile);
-    // You can add a success message or redirect the user
+    if (!user) return;
+
+    const updatedProfile = {
+      fullName: profile.name,
+      bio: profile?.bio || "",
+      password: profile.password || undefined,
+    };
+
+    const response = await updateUserProfile(
+      user.id,
+      updatedProfile,
+      token || null
+    );
+    if (!response.status) {
+      console.error("Failed to update profile:", response.error);
+      toast.error(`Error: ${response.error}`);
+      return;
+    }
+    toast.success("Profile updated successfully!");
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -115,6 +137,8 @@ const ProfileForm = () => {
             type="email"
             id="email"
             name="email"
+            disabled
+            placeholder="You can't change your email"
             value={profile.email}
             onChange={handleInputChange}
             className="mt-1 block w-full rounded-md border-slate-600 border  text-white/70 px-2 py-2 shadow-sm bg-slate-700/50   focus-visible:ring-blue-500 focus-visible:outline-none  focus:border-purple-500 focus:border "
@@ -148,7 +172,7 @@ const ProfileForm = () => {
             type="password"
             id="confirm-password"
             placeholder="Leave blank to keep the same"
-            name="confirm-password"
+            name="confirmPassword"
             value={profile.confirmPassword}
             onChange={handleInputChange}
             className="mt-1 block w-full rounded-md border-slate-600 border  text-white/70 px-2 py-2 shadow-sm bg-slate-700/50   focus-visible:ring-blue-500 focus-visible:outline-none  focus:border-purple-500 focus:border "
@@ -165,7 +189,7 @@ const ProfileForm = () => {
             id="bio"
             name="bio"
             rows={3}
-            value={profile.bio}
+            value={profile?.bio || ""}
             onChange={handleInputChange}
             className="mt-1 block w-full rounded-md border-slate-600 border  text-white/70 px-2 py-2 shadow-sm bg-slate-700/50   focus-visible:ring-blue-500 focus-visible:outline-none  focus:border-purple-500 focus:border "
           ></textarea>

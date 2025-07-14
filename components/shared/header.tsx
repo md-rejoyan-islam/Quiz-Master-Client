@@ -165,24 +165,20 @@ const NavLinks: React.FC<{
             </PopoverTrigger>
             <PopoverContent className="w-[200px] md:block hidden p-0 border border-slate-700/50 rounded-lg bg-slate-900/90">
               <div className="  shadow-md    mdbackdrop-blur-md   transition-opacity">
-                <p className="hidden md:block  text-white px-3 py-2 border-b border-purple-500 text-center">
-                  abc@gmail.com
+                <p className="hidden md:block  text-white px-3 py-2  border-purple-500 font-medium">
+                  My Account
                 </p>
                 <ul className="flex md:block flex-col items-center space-y-4 md:space-y-0">
-                  <motion.li
-                    whileHover={{ scale: 1.05 }}
-                    className="text-white cursor-pointer hover:text-purple-500 md:px-3 md:py-2 transition-colors"
-                  >
+                  <li className="text-white cursor-pointer hover:bg-black/30 md:px-3 md:py-2 transition-colors">
                     <Link href="/profile">Profile</Link>
-                  </motion.li>
+                  </li>
 
-                  <motion.li
-                    whileHover={{ scale: 1.05 }}
-                    className="text-gray-300 cursor-pointer md:px-3 md:py-2  hover:text-purple-400 transition-colors"
+                  <li
+                    className="text-gray-300 border-t border-blue-700/20 cursor-pointer md:px-3  hover:bg-black/30 md:py-2  hover:text-purple-400 transition-colors"
                     onClick={handleLogout}
                   >
-                    <Link href="/logout">Logout</Link>
-                  </motion.li>
+                    <span>Logout</span>
+                  </li>
                 </ul>
               </div>
             </PopoverContent>

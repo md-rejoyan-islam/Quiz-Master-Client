@@ -292,3 +292,44 @@ export const getAllAttemptsByQuizId = async (
     return errorResponse(message);
   }
 };
+
+export const leaderBoard = async (
+  token?: string
+): Promise<{
+  status: boolean;
+  error: string | null;
+  data:
+    | {
+        totalScore: number;
+        fullName: string;
+        score: number;
+        userId: string;
+        attempts: {
+          score: number;
+          createdAt: string;
+          quizSet: { description: string; id: string; title: string };
+        }[];
+      }[]
+    | null;
+}> => {
+  try {
+    const response = await fetch(`${api_url}/api/v1/quiz-sets/leaderboard`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to fetch leaderboard");
+    }
+
+    return successResponse(result.data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return errorResponse(message);
+  }
+};

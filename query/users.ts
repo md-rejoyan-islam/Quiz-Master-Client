@@ -106,3 +106,57 @@ export const getAllUserAttemptById = async (
     };
   }
 };
+
+export const updateUserProfile = async (
+  userId: string,
+  profileData: {
+    fullName: string;
+    bio?: string;
+    password?: string;
+  },
+  token: string | null = null
+): Promise<{
+  status: boolean;
+  error: string | null;
+  data: {
+    id: string;
+    fullName: string;
+    email: string;
+    bio: string | null;
+  } | null;
+}> => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/v1/users/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(profileData),
+      }
+    );
+
+    const result = await response.json();
+
+    console.log(result);
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to update user profile");
+    }
+
+    return {
+      status: true,
+      error: null,
+      data: result.data as USER,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return {
+      status: false,
+      error: message,
+      data: null,
+    };
+  }
+};
