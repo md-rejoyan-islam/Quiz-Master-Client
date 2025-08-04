@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function QuizLeaderboardPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  readonly params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const token = await getCookie("accessToken");

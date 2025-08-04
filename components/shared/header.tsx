@@ -178,11 +178,10 @@ const NavLinks: React.FC<{
                     </li>
                   )}
 
-                  <li
-                    className="text-gray-300 border-t border-blue-700/20 cursor-pointer md:px-3  hover:bg-black/30 md:py-2  hover:text-purple-400 transition-colors"
-                    onClick={handleLogout}
-                  >
-                    <span>Logout</span>
+                  <li className="text-gray-300 border-t border-blue-700/20 cursor-pointer md:px-3  hover:bg-black/30 md:py-2  hover:text-purple-400 transition-colors">
+                    <button onClick={handleLogout}>
+                      <span>Logout</span>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -191,11 +190,10 @@ const NavLinks: React.FC<{
         </li>
       )}
       {user && (
-        <li
-          className="text-gray-300 md:hidden block cursor-pointer text-lg h-7  hover:text-purple-400 transition-colors"
-          onClick={handleLogout}
-        >
-          <span>Logout</span>
+        <li className="text-gray-300 md:hidden block cursor-pointer text-lg h-7  hover:text-purple-400 transition-colors">
+          <button onClick={handleLogout}>
+            <span>Logout</span>
+          </button>
         </li>
       )}
     </>

@@ -148,7 +148,7 @@ const QuizPage = ({ quiz, token }: { quiz: QUIZ_SET; token?: string }) => {
         </div>
       </div>
       <div className="w-full md:w-1/2">
-        {!startQuiz && quiz.questions.length && (
+        {!startQuiz && quiz.questions.length > 0 && (
           <div className="flex items-center h-full justify-center">
             <Button
               onClick={handleStartQuiz}
@@ -199,9 +199,7 @@ const QuizPage = ({ quiz, token }: { quiz: QUIZ_SET; token?: string }) => {
           <div
             className={clsx(
               "flex ",
-              currentQuestionIndex === 0
-                ? "justify-between"
-                : "justify-between",
+              currentQuestionIndex === 0 ? "justify-between" : "",
               quiz.questions.length === 0 && "hidden"
             )}
           >

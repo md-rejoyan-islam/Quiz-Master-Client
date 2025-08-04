@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data, error } = await getQuizById(id);
 
   return {
-    title: data?.title || "Quiz Not Found",
-    description: data?.description || error,
+    title: data?.title ?? "Quiz Not Found",
+    description: data?.description ?? error,
   };
 }
 

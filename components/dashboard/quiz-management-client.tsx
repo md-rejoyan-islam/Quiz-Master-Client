@@ -351,7 +351,7 @@ export default function QuizManagementClient({
               perspective: "1000px",
             }}
             className={`bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 group cursor-pointer overflow-hidden relative ${
-              viewMode === "list" ? "p-6" : "p-6"
+              viewMode === "list" ? "p-6" : ""
             }`}
           >
             {/* Background Decoration */}

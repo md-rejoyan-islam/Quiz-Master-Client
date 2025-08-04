@@ -27,11 +27,7 @@ const Page = async () => {
     );
   }
 
-  return (
-    <>
-      <UserPerformance data={data?.slice(0, 4) || []} />
-    </>
-  );
+  return <UserPerformance data={data?.slice(0, 4) ?? []} />;
 };
 
 export default Page;

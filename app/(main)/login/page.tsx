@@ -10,13 +10,11 @@ export const metadata = {
 
 const LoginPage = () => {
   return (
-    <>
-      <AuthBodyTemplate>
-        <Suspense fallback={<Loading />}>
-          <LoginForm />
-        </Suspense>
-      </AuthBodyTemplate>
-    </>
+    <AuthBodyTemplate>
+      <Suspense fallback={<Loading />}>
+        <LoginForm />
+      </Suspense>
+    </AuthBodyTemplate>
   );
 };
 

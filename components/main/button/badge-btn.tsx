@@ -17,7 +17,8 @@ const BadgeBtn = ({ icon, text }: { icon?: React.ReactNode; text: string }) => {
       whileHover={{ scale: 1.05 }}
       className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-full text-purple-300 text-sm font-medium mb-8 border border-purple-500/30 shadow-lg backdrop-blur-sm"
     >
-      <div>{icon && icon}</div>
+      {icon && <div>{icon}</div>}
+
       <span className="bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-[11px] text-transparent font-semibold">
         {text}
       </span>

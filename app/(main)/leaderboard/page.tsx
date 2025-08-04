@@ -17,14 +17,12 @@ const LeaderboardPage = async () => {
   );
 
   return (
-    <>
-      <LeaderboardClient
-        data={data || []}
-        error={error}
-        userId={user?.id}
-        quizzes={quizzes || []}
-      />
-    </>
+    <LeaderboardClient
+      data={data ?? []}
+      error={error}
+      userId={user?.id}
+      quizzes={quizzes ?? []}
+    />
   );
 };
 
